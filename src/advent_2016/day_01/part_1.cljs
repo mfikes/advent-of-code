@@ -26,15 +26,37 @@
     "R" ::right
     "L" ::left))
 
+(s/def ::turn-rep #{"R" "L"})
+
+(s/fdef parse-turn
+  :args (s/cat :s ::turn-rep)
+  :ret ::turn)
+
 (defn parse-blocks
   [s]
   (js/parseInt s))
+
+(s/def ::blocks-rep (s/with-gen string?
+                      #(s/gen (set (map str (range 1 200))))))
+
+(s/fdef parse-blocks
+  :args (s/cat :s ::blocks-rep)
+  :ret ::blocks)
 
 (defn parse-move
   [move]
   (let [move-str (str move)]
     {::turn   (parse-turn (first move-str))
      ::blocks (parse-blocks (subs move-str 1))}))
+
+(s/def ::move-rep (s/with-gen symbol?
+                    #(s/gen (set (for [turn ["R" "L"]
+                                       blocks (range 1 200)]
+                                   (symbol (str turn blocks)))))))
+
+(s/fdef parse-move
+  :args (s/cat :s ::move-rep)
+  :ret ::move)
 
 (def directions-clockwise [::north ::east ::south ::west])
 
