@@ -1,4 +1,4 @@
-(ns advent-2016.day-01
+(ns advent-2016.day-01.part-1
   (:require [clojure.set :as set]))
 
 (defn parse-turn
