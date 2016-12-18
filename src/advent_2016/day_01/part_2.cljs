@@ -5,15 +5,16 @@
 
 (s/def ::turn #{::right ::left ::none})
 
-(s/def ::blocks int?)
+(s/def ::blocks (s/with-gen (s/and int? pos?)
+                  #(s/gen (set (range 1 200)))))
 
 (s/def ::direction #{::north ::east ::south ::west})
 
 (s/def ::move (s/keys :req [::turn ::blocks]))
 
-(s/def ::blocks-east ::blocks)
+(s/def ::blocks-east int?)
 
-(s/def ::blocks-north ::blocks)
+(s/def ::blocks-north int?)
 
 (s/def ::location (s/keys :req [::blocks-east ::blocks-north]))
 
@@ -105,9 +106,6 @@
         (if (so-far f)
           f
           (recur (conj so-far f) (rest to-go)))))))
-
-(s/fdef first-repeat
-  :args (s/coll-of any?))
 
 (defn calcluate-solution
   [initial-state moves]
