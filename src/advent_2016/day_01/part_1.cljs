@@ -1,5 +1,8 @@
 (ns advent-2016.day-01.part-1
-  (:require [clojure.set :as set]))
+  (:require [clojure.set :as set]
+            [clojure.spec :as s]))
+
+(s/def ::turn #{:right :left})
 
 (defn parse-turn
   [s]
