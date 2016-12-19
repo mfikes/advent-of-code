@@ -1,5 +1,7 @@
 (ns advent-2016.day-02.part-1
-  (:require [cljs.spec :as s]))
+  (:require
+    [clojure.set :as set]
+    [cljs.spec :as s]))
 
 (def puzzle-input
   ['LDUDDRUDRRURRRRDRUUDULDLULRRLLLUDDULRDLDDLRULLDDLRUURRLDUDDDDLUULUUDDDDLLLLLULLRURDRLRLRLLURDLLDDUULUUUUDLULLRLUUDDLRDRRURRLURRLLLRRDLRUDURRLRRRLULRDLUDRDRLUDDUUULDDDDDURLDULLRDDRRUDDDDRRURRULUDDLLRRDRURDLLLLLUUUDLULURLULLDRLRRDDLUDURUDRLRURURLRRDDLDUULURULRRLLLDRURDULRDUURRRLDLDUDDRLURRDRDRRLDLRRRLRURDRLDRUDLURRUURDLDRULULURRLDLLLUURRULUDDDRLDDUDDDRRLRDUDRUUDDULRDDULDDURULUDLUDRUDDDLRRRRRDLULDRLRRRRUULDUUDRRLURDLLUUDUDDDLUUURDRUULRURULRLLDDLLUDLURRLDRLDDDLULULLURLULRDLDRDDDLRDUDUURUUULDLLRDRUDRDURUUDDLRRRRLLLUULURRURLLDDLDDD
@@ -52,16 +54,15 @@
   :args (s/cat :coordinates (s/spec ::coordinates) :move ::move)
   :ret ::coordinates)
 
-(defn make-key-lookup
-  []
-  (zipmap (for [y (range 3)
-                x (range 3)]
-            [x y])
-    (iterate inc 1)))
+(def key-lookup
+  (delay (zipmap (for [y (range 3)
+                       x (range 3)]
+                   [x y])
+           (iterate inc 1))))
 
 (defn coordinates->key
   [coordinates]
-  ((make-key-lookup) coordinates))
+  (@key-lookup coordinates))
 
 (s/fdef coordinates->key
   :args (s/cat :coordinates (s/spec ::coordinates))
@@ -81,7 +82,8 @@
   []
   (let [moves-list (map parse-moves puzzle-input)]
     (->> (reductions process-moves
-           [5 5]
+           ((set/map-invert @key-lookup) 5)
            moves-list)
       rest
-      (map coordinates->key))))
+      (map coordinates->key)
+      (apply str))))
