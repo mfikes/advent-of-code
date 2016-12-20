@@ -12,24 +12,29 @@
     (take 5 x)
     (apply str x)))
 
-(defn number-char?
-  [s]
-  ((set (seq "0123456789")) s))
-
-(defn parse
-  [input]
-  (let [[code room-num] (split-with (complement number-char?) input)]
-    [code (js/parseInt (apply str room-num))]))
-
 (defn valid-room?
   [code expected-checksum]
   (= expected-checksum (checksum code)))
 
+(defn number-char?
+  [s]
+  ((set (seq "0123456789")) s))
+
+(defn parse-name-sector-id
+  [input]
+  (let [[code room-num] (split-with (complement number-char?) input)]
+    [(apply str code) (js/parseInt (apply str room-num))]))
+
+(defn parse-input
+  [input]
+  (for [[encrypted-name-sector-id [checksum]] (partition 2 input)]
+    [(name encrypted-name-sector-id) (name checksum)]))
+
 (defn solve
   ([] (solve puzzle-input))
   ([input]
-   (apply + (for [[encrypted-name-sector-id [checksum]] (partition 2 input)]
-              (let [[encrypted-name sector-id] (parse (name encrypted-name-sector-id))]
-                (if (valid-room? encrypted-name (name checksum))
+   (apply + (for [[encrypted-name-sector-id checksum] (parse-input input)]
+              (let [[encrypted-name sector-id] (parse-name-sector-id encrypted-name-sector-id)]
+                (if (valid-room? encrypted-name checksum)
                   sector-id
                   0))))))
