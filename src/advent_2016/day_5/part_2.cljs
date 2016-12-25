@@ -27,12 +27,12 @@
   [s]
   (loop [seen #{}
          candidates (candidates s)
-         result ""]
+         result (vec (repeat 8 " "))]
     (let [candidate (first candidates)
           ndx (js/parseInt (ndx-str candidate))]
       (if (seen ndx)
         (recur seen (rest candidates) result)
-        (let [result (str result (code-str candidate))]
-          (if (== 8 (count result))
-            result
+        (let [result (assoc result ndx (code-str candidate))]
+          (if (== 8 (count seen))
+            (apply str result)
             (recur (conj seen ndx) (rest candidates) result)))))))
