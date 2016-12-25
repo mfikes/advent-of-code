@@ -33,6 +33,6 @@
       (if (seen ndx)
         (recur seen (rest candidates) result)
         (let [result (assoc result ndx (code-str candidate))]
-          (if (== 8 (count seen))
+          (if (== 7 (count seen))
             (apply str result)
             (recur (conj seen ndx) (rest candidates) result)))))))
