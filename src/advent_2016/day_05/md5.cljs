@@ -1,4 +1,4 @@
-(ns advent-2016.day-5.md5
+(ns advent-2016.day-05.md5
   (:require [goog.crypt :as gcrypt])
   (:import (goog.crypt Md5)))
 

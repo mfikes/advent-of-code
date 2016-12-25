@@ -1,5 +1,5 @@
-(ns advent-2016.day-5.part-2
-  (:require [advent-2016.day-5.md5 :refer [md5-hex]]
+(ns advent-2016.day-05.part-2
+  (:require [advent-2016.day-05.md5 :refer [md5-hex]]
             [clojure.string :as str]))
 
 (defn ndx-str
