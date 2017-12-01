@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
 
-script/get-tcheck
-planck -n 51638 -Kc lib/test.check-0.9.0-TCHECK-105.jar:src
+planck -n 51638 -Kc src -D org.clojure/test.check:0.10.0-alpha2
