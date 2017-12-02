@@ -10,6 +10,8 @@
   (- (apply max xs) (apply min xs)))
 
 (defn solve
+  "Solves the puzzle for a row sequence. If none provided, solves using the
+  main puzzle input."
   ([] (solve data/puzzle-input))
   ([rows]
    (transduce
