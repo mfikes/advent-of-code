@@ -1,7 +1,7 @@
 (ns advent-2017.day-02.part-2-test
   (:require
    [clojure.test :refer [deftest is are]]
-   [advent-2017.day-02.part-2 :refer [divides? multiples first-integer-ratio solve]]))
+   [advent-2017.day-02.part-2 :refer [divides? dividing-pairs first-integer-ratio solve]]))
 
 (deftest divieds?-test
   (are [r d n] (= r (divides? d n))
@@ -15,8 +15,8 @@
     false 2 3
     true 2 4))
 
-(deftest multiples-test
-  (are [ms xs] (= ms (multiples xs))
+(deftest dividing-pairs-test
+  (are [ms xs] (= ms (dividing-pairs xs))
     [] []
     [] [1 1]
     [[1 2]] [1 2]

@@ -8,7 +8,7 @@
   (and (not= 0 x y)
        (zero? (mod y x))))
 
-(defn multiples
+(defn dividing-pairs
   "Returns a lazy sequence of all distinct pairs elements x1 and x2 such that x1
   divides x2."
   [xs]
@@ -22,7 +22,7 @@
   "Returns the ratio of the first pair of distinct elements in xs where one
   divides the other, or nil if none are found."
   [xs]
-  (when-let [[x y] (first (multiples xs))]
+  (when-let [[x y] (first (dividing-pairs xs))]
     (/ y x)))
 
 (defn solve
