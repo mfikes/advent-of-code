@@ -1,9 +1,4 @@
-(ns advent-2017.day-04.data-1
-  (:require
-   [clojure.string :as str]))
-
-(def raw-input
-  "vxjtwn vjnxtw sxibvv mmws wjvtxn icawnd rprh
+vxjtwn vjnxtw sxibvv mmws wjvtxn icawnd rprh
 fhaa qwy vqbq gsswej lxr yzl wakcige mwjrl
 bhnlow huqa gtbjc gvj wrkyr jgvmhj bgs umo ikbpdto
 drczdf bglmf gsx flcf ojpj kzrwrho owbkl dgrnv bggjevc
@@ -514,6 +509,4 @@ dtjr baxkj lmnyrlg nrmyllg
 mtgky xmwf zdko nnocxye gytkm ygp hixk xwmf
 maudjy okgjga uadjmy dzfrk omd
 azz ajdcqkd bcafn zaz dcjaqdk gylyzo
-xzvfbf fopmfxu mvftgr mfupoxf coyhof talcc vpkslo")
-
-(def puzzle-input (str/split-lines raw-input))
+xzvfbf fopmfxu mvftgr mfupoxf coyhof talcc vpkslo

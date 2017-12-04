@@ -1,6 +1,6 @@
-(ns advent-2017.day-03.part-1
-  (:require
-   [advent-2017.day-03.data-1 :as data]))
+(ns advent-2017.day-03)
+
+(def puzzle-input 368078)
 
 (defn candidate-locations
   "Given a location, produces the four candidate adjacent locations in
@@ -31,8 +31,8 @@
 (def spiral
   "A lazy sequnce of the memory locations."
   (->> [[1 0] #{[0 0] [1 0]}]
-              (iterate step) (map first)
-              (cons [0 0])))
+    (iterate step) (map first)
+    (cons [0 0])))
 
 (defn location
   "Gives the location for a given memory square."
@@ -44,9 +44,22 @@
   [[x y]]
   (+ (Math/abs x) (Math/abs y)))
 
-(defn solve
-  "Solves the puzzle for a memory square. If none provided, solves using the
-  main puzzle input."
-  ([] (solve data/puzzle-input))
-  ([square]
-   (distance (location square))))
+(def part-1 (distance (location puzzle-input)))
+
+(defn adjacent-locations
+  "Given a location, produces the eight adjacent locations."
+  [[x y]]
+  (map (fn [[dx dy]]
+         [(+ x dx) (+ y dy)])
+    [[-1  1] [ 0  1] [ 1  1]
+     [-1  0]         [ 1  0]
+     [-1 -1] [ 0 -1] [ 1 -1]]))
+
+(def part-2
+  (reduce (fn [acc location]
+            (let [value (apply + (map #(acc % 0) (adjacent-locations location)))]
+              (if (< puzzle-input value)
+                (reduced value)
+                (assoc acc location value))))
+    {[0 0] 1}
+    (rest spiral)))
