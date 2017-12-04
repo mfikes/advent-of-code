@@ -1,14 +1,14 @@
 (ns advent-2017.day-02
   (:refer-clojure :exclude [range])
   (:require
-   [planck.core :refer [slurp]]
-   [planck.io :as io]
+   #?(:cljs [planck.core :refer [read-string slurp]])
+   [#?(:clj clojure.java.io :cljs planck.io) :as io]
    [clojure.string :as str]))
 
 (def input (->> (slurp (io/resource "advent_2017/day_02/input"))
              str/split-lines
              (map #(str/split % #"\t"))
-             (map #(map js/parseInt %))))
+             (map #(map read-string %))))
 
 (defn range
   "Finds the difference between the maximum and minimum values in the

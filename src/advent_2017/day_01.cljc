@@ -1,7 +1,7 @@
 (ns advent-2017.day-01
   (:require
-   [planck.core :refer [slurp]]
-   [planck.io :as io]
+   #?(:cljs [planck.core :refer [slurp]])
+   [#?(:clj clojure.java.io :cljs planck.io) :as io]
    [clojure.string :as str]))
 
 (let [c->d (zipmap "0123456789" (range))]

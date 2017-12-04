@@ -1,7 +1,7 @@
 (ns advent-2017.day-04
   (:require
-   [planck.core :refer [slurp]]
-   [planck.io :as io]
+   #?(:cljs [planck.core :refer [slurp]])
+   [#?(:clj clojure.java.io :cljs planck.io) :as io]
    [clojure.string :as str]))
 
 (def input (str/split-lines (slurp (io/resource "advent_2017/day_04/input"))))
