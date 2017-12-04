@@ -5,7 +5,9 @@
    [#?(:clj clojure.java.io :cljs planck.io) :as io]
    [clojure.string :as str]))
 
-(def input (->> (slurp (io/resource "advent_2017/day_02/input"))
+(def input (->> "advent_2017/day_02/input"
+             io/resource
+             slurp
              str/split-lines
              (map #(str/split % #"\t"))
              (map #(map read-string %))))
