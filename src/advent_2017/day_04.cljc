@@ -1,10 +1,13 @@
 (ns advent-2017.day-04
   (:require
-   #?(:cljs [planck.core :refer [slurp]])
+   #?(:cljs [planck.core :refer [line-seq]])
    [#?(:clj clojure.java.io :cljs planck.io) :as io]
    [clojure.string :as str]))
 
-(def input (str/split-lines (slurp (io/resource "advent_2017/day_04/input"))))
+(def input (->> "advent_2017/day_04/input"
+             io/resource
+             io/reader
+             line-seq))
 
 (defn valid-passphrase?
   [normalize passphrase]

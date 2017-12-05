@@ -44,7 +44,8 @@
   [[x y]]
   (+ (Math/abs x) (Math/abs y)))
 
-(def part-1 (distance (location puzzle-input)))
+(def part-1
+  (delay (distance (location puzzle-input))))
 
 (defn adjacent-locations
   "Given a location, produces the eight adjacent locations."
