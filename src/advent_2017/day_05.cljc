@@ -11,14 +11,12 @@
              (map read-string)))
 
 (defn solve [maze update-fn]
-  (let [upper-bound (dec (count maze))]
-    (reduce
-      (fn [[maze ndx] counter]
-        (if (<= 0 ndx upper-bound)
-          [(update maze ndx update-fn) (+ ndx (maze ndx))]
-          (reduced counter)))
-      [(vec maze) 0]
-      (range))))
+  (reduce (fn [[maze ndx] counter]
+            (if-let [offset (get maze ndx)]
+              [(update maze ndx update-fn) (+ ndx offset)]
+              (reduced counter)))
+    [(vec maze) 0]
+    (range)))
 
 (defn part-1 []
   (solve input inc))
