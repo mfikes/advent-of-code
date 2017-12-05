@@ -21,6 +21,8 @@
     (filter (partial valid-passphrase? normalize))
     count))
 
-(def part-1 (solve identity))
+(defn part-1 []
+  (solve identity))
 
-(def part-2 (solve sort))
+(defn part-2 []
+  (solve sort))

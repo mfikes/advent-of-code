@@ -44,8 +44,8 @@
   [[x y]]
   (+ (Math/abs x) (Math/abs y)))
 
-(def part-1
-  (delay (distance (location puzzle-input))))
+(defn part-1 []
+  (distance (location puzzle-input)))
 
 (defn adjacent-locations
   "Given a location, produces the eight adjacent locations."
@@ -56,7 +56,7 @@
      [-1  0]         [ 1  0]
      [-1 -1] [ 0 -1] [ 1 -1]]))
 
-(def part-2
+(defn part-2 []
   (reduce (fn [acc location]
             (let [value (apply + (map #(acc % 0) (adjacent-locations location)))]
               (if (< puzzle-input value)

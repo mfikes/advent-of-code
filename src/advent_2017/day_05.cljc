@@ -20,9 +20,11 @@
       [(vec maze) 0]
       (range))))
 
-(def part-1 (solve input inc))
+(defn part-1 []
+  (solve input inc))
 
-(def part-2 (solve input (fn [v]
-                           (if (<= 3 v)
-                             (dec v)
-                             (inc v)))))
+(defn part-2 []
+  (solve input (fn [v]
+                 (if (<= 3 v)
+                   (dec v)
+                   (inc v)))))

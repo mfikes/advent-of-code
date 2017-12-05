@@ -26,6 +26,8 @@
   [pair-up]
   (apply + (matches input (pair-up input))))
 
-(def part-1 (solve #(rest (cycle %))))
+(defn part-1 []
+  (solve #(rest (cycle %))))
 
-(def part-2 (solve #(nthrest (cycle %) (/ (count %) 2))))
+(defn part-2 []
+  (solve #(nthrest (cycle %) (/ (count %) 2))))

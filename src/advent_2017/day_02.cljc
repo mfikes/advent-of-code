@@ -25,7 +25,8 @@
     +
     input))
 
-(def part-1 (solve range))
+(defn part-1 []
+  (solve range))
 
 (defn divides?
   "Returns true iff x divides y."
@@ -50,4 +51,5 @@
   (when-let [[x y] (first (dividing-pairs xs))]
     (/ y x)))
 
-(def part-2 (solve first-integer-ratio))
+(defn part-2 []
+  (solve first-integer-ratio))
