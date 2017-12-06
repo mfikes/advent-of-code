@@ -1,6 +1,6 @@
 (ns advent-2017.day-03)
 
-(def puzzle-input 368078)
+(def data 368078)
 
 (defn candidate-locations
   "Given a location, produces the four candidate adjacent locations in
@@ -45,7 +45,7 @@
   (+ (Math/abs x) (Math/abs y)))
 
 (defn part-1 []
-  (distance (location puzzle-input)))
+  (distance (location data)))
 
 (defn adjacent-locations
   "Given a location, produces the eight adjacent locations."
@@ -59,7 +59,7 @@
 (defn part-2 []
   (reduce (fn [acc location]
             (let [value (apply + (map #(acc % 0) (adjacent-locations location)))]
-              (if (< puzzle-input value)
+              (if (< data value)
                 (reduced value)
                 (assoc acc location value))))
     {[0 0] 1}

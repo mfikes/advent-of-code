@@ -4,16 +4,14 @@
    [#?(:clj clojure.java.io :cljs planck.io) :as io]
    [clojure.string :as str]))
 
+(def input (-> "advent_2017/day_01/input" io/resource slurp))
+
 (let [c->d (zipmap "0123456789" (range))]
   (defn str->digits
     [s]
     (map c->d s)))
 
-(def input (-> "advent_2017/day_01/input"
-             io/resource
-             slurp
-             str/trim
-             str->digits))
+(def data (-> input str/trim str->digits))
 
 (defn matches
   [xs ys]
@@ -24,7 +22,7 @@
 
 (defn solve
   [pair-up]
-  (apply + (matches input (pair-up input))))
+  (apply + (matches data (pair-up data))))
 
 (defn part-1 []
   (solve #(rest (cycle %))))

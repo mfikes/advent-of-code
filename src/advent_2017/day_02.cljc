@@ -5,12 +5,11 @@
    [#?(:clj clojure.java.io :cljs planck.io) :as io]
    [clojure.string :as str]))
 
-(def input (->> "advent_2017/day_02/input"
-             io/resource
-             io/reader
-             line-seq
-             (map #(str/split % #"\t"))
-             (map #(map read-string %))))
+(def input (->> "advent_2017/day_02/input" io/resource io/reader line-seq))
+
+(def data (->> input
+            (map #(str/split % #"\t"))
+            (map #(map read-string %))))
 
 (defn range
   "Finds the difference between the maximum and minimum values in the
@@ -23,7 +22,7 @@
   (transduce
     (map f)
     +
-    input))
+    data))
 
 (defn part-1 []
   (solve range))

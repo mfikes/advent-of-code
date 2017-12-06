@@ -4,11 +4,9 @@
    [#?(:clj clojure.java.io :cljs planck.io) :as io]
    [clojure.string :as str]))
 
-(def input (->> "advent_2017/day_05/input"
-             io/resource
-             io/reader
-             line-seq
-             (map read-string)))
+(def input (->> "advent_2017/day_05/input" io/resource io/reader line-seq))
+
+(def data (map read-string input))
 
 (defn solve [maze update-fn]
   (reduce (fn [[maze ndx] counter]
@@ -19,10 +17,10 @@
     (range)))
 
 (defn part-1 []
-  (solve input inc))
+  (solve data inc))
 
 (defn part-2 []
-  (solve input (fn [v]
+  (solve data (fn [v]
                  (if (<= 3 v)
                    (dec v)
                    (inc v)))))

@@ -4,10 +4,7 @@
    [#?(:clj clojure.java.io :cljs planck.io) :as io]
    [clojure.string :as str]))
 
-(def input (->> "advent_2017/day_04/input"
-             io/resource
-             io/reader
-             line-seq))
+(def input (->> "advent_2017/day_04/input" io/resource io/reader line-seq))
 
 (defn valid-passphrase?
   [normalize passphrase]
