@@ -8,13 +8,8 @@
 
 (def data (as-> input x (str/trim x) (str/split x #"\t") (mapv read-string x)))
 
-;; like (apply max-key [3 1 2 3] (range 4)), but reversing things
-(defn max-ndx [v]
-  (- (dec (count v))
-     (apply max-key (vec (rseq v)) (range (count v)))))
-
 (defn redistribute [banks]
-  (let [max-ndx     (max-ndx banks)
+  (let [max-ndx     (.indexOf banks (apply max banks))
         target-ndxs (map #(mod (+ max-ndx 1 %) (count banks))
                       (range (banks max-ndx)))]
     (merge-with + (assoc banks max-ndx 0) (frequencies target-ndxs))))
