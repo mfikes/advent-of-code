@@ -9,7 +9,8 @@
 (def data (as-> input x (str/trim x) (str/split x #"\t") (mapv read-string x)))
 
 (defn redistribute [banks]
-  (let [max-ndx     (.indexOf banks (apply max banks))
+  (let [max-val     (apply max (vals banks))
+        max-ndx     (apply min (keep (fn [[k v]] (when (= max-val v) k)) banks))
         target-ndxs (map #(mod (+ max-ndx 1 %) (count banks))
                       (range (banks max-ndx)))]
     (merge-with + (assoc banks max-ndx 0) (frequencies target-ndxs))))
@@ -19,7 +20,7 @@
             (if (last-seen banks)
               (reduced [steps (last-seen banks)])
               [(assoc last-seen banks steps) (redistribute banks)]))
-    [{} banks]
+    [{} (zipmap (range) banks)]
     (range)))
 
 (defn part-1 []
