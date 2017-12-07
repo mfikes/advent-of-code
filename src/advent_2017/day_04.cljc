@@ -6,14 +6,12 @@
 
 (def input (->> "advent_2017/day_04/input" io/resource io/reader line-seq))
 
-(defn valid-passphrase?
-  [normalize passphrase]
+(defn valid-passphrase? [normalize passphrase]
   (->> (str/split passphrase #" ")
     (map normalize)
     (apply distinct?)))
 
-(defn solve
-  [normalize]
+(defn solve [normalize]
   (->> input
     (filter (partial valid-passphrase? normalize))
     count))

@@ -13,15 +13,13 @@
 
 (def data (-> input str/trim str->digits))
 
-(defn matches
-  [xs ys]
+(defn matches [xs ys]
   (->>
     (map vector xs ys)
     (filter (partial apply =))
     (map first)))
 
-(defn solve
-  [pair-up]
+(defn solve [pair-up]
   (apply + (matches data (pair-up data))))
 
 (defn part-1 []
