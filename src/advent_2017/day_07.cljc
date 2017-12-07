@@ -5,9 +5,7 @@
    [clojure.string :as str]
    [clojure.spec.alpha :as s]
    [clojure.set :as set])
-  #?(:clj
-     (:import
-      (java.io PushbackReader))))
+  #?(:clj (:import (java.io PushbackReader))))
 
 (def input (->> "advent_2017/day_07/input" io/resource io/reader #?(:clj PushbackReader.)))
 
@@ -27,16 +25,15 @@
   (defn lookup [name]
     (first (index {:name name}))))
 
-(def weight (memoize (fn weight [name]
-                       (let [program (lookup name)]
-                         (apply + (:weight program) (map weight (:held program)))))))
+(defn weight [name]
+  (let [program (lookup name)]
+    (apply + (:weight program) (map weight (:held program)))))
 
 (defn part-2 []
   (some (fn [program]
           (when-let [held (:held program)]
             (let [weights (map weight held)]
               (when-not (apply == weights)
-                (prn program)
                 (let [unique-weight ((set/map-invert (frequencies weights)) 1)]
                   (+ (:weight (lookup (nth held (.indexOf weights unique-weight))))
                      (- (apply min weights) (apply max weights))))))))
