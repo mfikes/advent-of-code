@@ -20,7 +20,7 @@
 (def register-history
   (reductions (fn [acc {:keys [tgt upd val lhs cmp rhs]}]
                 (eval `(cond-> '~acc (~cmp ('~acc '~lhs 0) ~rhs) (update '~tgt (fnil ~upd 0) ~val))))
-    {}
+    (zipmap (map :lhs data) (repeat 0))
     data))
 
 (defn max-register-val [registers]
