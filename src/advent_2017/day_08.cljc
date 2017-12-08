@@ -9,9 +9,10 @@
 
 (def input (->> "advent_2017/day_08/input" io/resource io/reader #?(:clj PushbackReader.)))
 
-(s/def ::instr (s/* (s/cat :tgt symbol? :upd symbol? :val number? :if #{'if} :lhs symbol? :cmp symbol? :rhs number?)))
+(s/def ::instr (s/* (s/cat :tgt simple-symbol? :upd '#{inc dec} :val int? :if '#{if} :lhs simple-symbol? :cmp '#{< > <= >= != ==} :rhs int?)))
 
 (def data (->> (repeatedly #(read {:eof nil} input)) (take-while some?) (s/conform ::instr)))
+(assert (not= data ::s/invalid))
 
 (def inc +)
 (def dec -)
