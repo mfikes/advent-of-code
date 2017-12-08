@@ -1,6 +1,6 @@
 (ns advent-2017.day-07
   (:require
-   #?(:cljs [planck.core :refer [line-seq read]])
+   #?(:cljs [planck.core :refer [read]])
    [#?(:clj clojure.java.io :cljs planck.io) :as io]
    [clojure.string :as str]
    [clojure.spec.alpha :as s]

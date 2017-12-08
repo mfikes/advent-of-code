@@ -1,7 +1,7 @@
 (ns advent-2017.day-08
   (:refer-clojure :exclude [inc dec])
   (:require
-   #?(:cljs [planck.core :refer [line-seq read eval]])
+   #?(:cljs [planck.core :refer [eval read]])
    [#?(:clj clojure.java.io :cljs planck.io) :as io]
    [clojure.string :as str]
    [clojure.spec.alpha :as s])
