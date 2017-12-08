@@ -13,8 +13,8 @@
 
 (def data (->> (repeatedly #(read {:eof nil} input)) (take-while some?) (s/conform ::instr)))
 
-(defn inc [a b] (+ a b))
-(defn dec [a b] (- a b))
+(def inc +)
+(def dec -)
 (def != not=)
 
 (def register-history
