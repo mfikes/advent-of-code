@@ -9,12 +9,15 @@
 
 (def input (->> "advent_2017/day_07/input" io/resource io/reader #?(:clj PushbackReader.)))
 
-(s/def ::programs (s/* (s/alt ::solo (s/cat :name symbol? :weight list?)
-                              ::deps (s/cat :name symbol? :weight list? ::arrow #{'->} :held (s/* symbol?)))))
+(s/def ::weight (s/coll-of int? :kind list? :min-count 1 :max-count 1))
+(s/def ::program (s/alt ::solo (s/cat :name symbol? :weight ::weight)
+                         ::deps (s/cat :name symbol? :weight ::weight ::arrow #{'->} :held (s/* symbol?))))
 
+(s/check-asserts true)
 (def data (->> (repeatedly #(read {:eof nil} input))
             (take-while some?)
-            (s/conform ::programs)
+            (s/assert (s/* ::program))
+            (s/conform (s/* ::program))
             (map second)
             (map #(update % :weight first))))
 
