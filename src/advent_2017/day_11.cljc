@@ -18,7 +18,7 @@
     nw [(dec x) (inc y)      z]))
 
 (defn dist [coords]
-  (/ (apply + (map #(Math/abs %) coords)) 2))
+  (/ (apply + (map #(Math/abs ^long %) coords)) 2))
 
 (defn part-1 []
   (dist (reduce move [0 0 0] data)))
