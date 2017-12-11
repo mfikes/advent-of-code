@@ -6,9 +6,9 @@
 
 (defn round [lengths [xs current-pos skip-size]]
   (reduce (fn [[xs current-pos skip-size] length]
-            (let [reversed (reverse (take length (drop current-pos (cycle xs))))
-                  after    (take (- 256 length) (drop (+ current-pos length) (cycle xs)))]
-              [(take 256 (drop (- 256 current-pos) (cycle (concat reversed after))))
+            (let [[to-reverse all-after] (split-at length (->> xs cycle (drop current-pos)))
+                  reversed-and-after (concat (reverse to-reverse) (take (- 256 length) all-after))]
+              [(->> reversed-and-after cycle (drop (- 256 current-pos)) (take 256))
                (mod (+ current-pos length skip-size) 256)
                (mod (inc skip-size) 256)]))
     [xs current-pos skip-size]
