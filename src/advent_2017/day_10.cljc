@@ -1,6 +1,7 @@
 (ns advent-2017.day-10
   (:require
-   [clojure.string :as str]))
+   [clojure.string :as str]
+   [clojure.pprint :refer [cl-format]]))
 
 (def data [129,154,49,198,200,133,97,254,41,6,2,1,255,0,191,108])
 
@@ -24,10 +25,6 @@
 (defn xs->ascii [xs]
   (->> xs (str/join ",") (mapv #?(:clj int :cljs #(.charCodeAt % 0)))))
 
-(defn hex [n]
-  (let [nybble (fn [n] (nth "0123456789abcdef" n))]
-    (str (nybble (bit-and (bit-shift-right n 4) 0xF)) (nybble (bit-and n 0xF)))))
-
 (defn part-2 []
   (->> [(range 256) 0 0]
     (iterate (partial round (into (xs->ascii data) [17, 31, 73, 47, 23])))
@@ -35,5 +32,5 @@
     ffirst
     (partition 16)
     (map #(reduce bit-xor %))
-    (map hex)
+    (map #(cl-format nil "~2,'0x" %))
     (apply str)))
