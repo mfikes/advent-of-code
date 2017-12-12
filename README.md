@@ -4,7 +4,7 @@
 
 ## Clojure
 
-This is a conventional project set up with [Leiningen](https://leiningen.org).
+This is a conventional project set up for [Leiningen](https://leiningen.org) and the [Clojure CLI](https://clojure.org/guides/deps_and_cli).
 
 ## Self-Hosted ClojureScript
 
