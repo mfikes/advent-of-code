@@ -24,7 +24,7 @@
       :else (let [[uf root] (find uf parent)]
               [(assoc-in uf [x :parent] root) root]))))
 
-(defn union [uf x y]
+(defn union [uf [x y]]
   (let [[uf x-root] (find uf x)
         [uf y-root] (find uf y)]
     (if (== x-root y-root)
@@ -37,7 +37,7 @@
             (update-in [x-root :rank] (fnil inc 0))))))))
 
 (def uf (reduce (fn [uf {:keys [node nodes]}]
-                  (reduce #(union %1 node %2) uf nodes))
+                  (reduce #(union %1 [node %2]) uf nodes))
           {}
           data))
 
