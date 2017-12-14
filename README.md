@@ -8,12 +8,6 @@
 clj
 ```
 
-or
-
-```
-lein repl
-```
-
 ## Self-Hosted ClojureScript
 
 ```

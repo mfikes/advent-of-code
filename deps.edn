@@ -2,6 +2,7 @@
  :paths ["src" "resources" "dev"]
 
  :deps {
+        org.clojure/clojurescript {:mvn/version "1.9.946"}
         org.clojure/test.check {:mvn/version "0.10.0-alpha2"}
         tubular {:mvn/version "1.1.1"}
         }
