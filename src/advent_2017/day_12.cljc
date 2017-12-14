@@ -1,7 +1,7 @@
 (ns advent-2017.day-12
   (:refer-clojure :exclude [find])
   (:require
-   #?(:cljs [planck.core :refer [eval read]])
+   #?(:cljs [planck.core :refer [read]])
    [#?(:clj clojure.java.io :cljs planck.io) :as io]
    [clojure.spec.alpha :as s])
   #?(:clj (:import (java.io PushbackReader))))

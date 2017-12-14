@@ -1,8 +1,7 @@
 (ns advent-2017.day-13
   (:require
    #?(:cljs [planck.core :refer [line-seq read-string]])
-   [#?(:clj clojure.java.io :cljs planck.io) :as io]
-   [clojure.string :as str]))
+   [#?(:clj clojure.java.io :cljs planck.io) :as io]))
 
 (def input (->> "advent_2017/day_13/input" io/resource io/reader line-seq))
 
