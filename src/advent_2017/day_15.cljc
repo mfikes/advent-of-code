@@ -1,6 +1,8 @@
 (ns advent-2017.day-15
   #?(:cljs (:require-macros [advent-2017.day-15 :refer [solve a-gen b-gen multiples]])))
 
+#?(:clj (set! *unchecked-math* :warn-on-boxed))
+
 (when #?(:clj true :cljs (re-matches #".*\$macros" (name (ns-name *ns*))))
 
   (def ^:const input-a 512)
@@ -10,8 +12,8 @@
     `(loop [sum# 0 ~a input-a ~b input-b count# 0]
        (if (== count# ~max-count)
          sum#
-         (let [next-a# ~a-gen
-               next-b# ~b-gen]
+         (let [next-a# (long ~a-gen)
+               next-b# (long ~b-gen)]
            (if (== (bit-and next-a# 0xFFFF) (bit-and next-b# 0xFFFF))
              (recur (inc sum#) next-a# next-b# (inc count#))
              (recur sum# next-a# next-b# (inc count#)))))))
