@@ -26,9 +26,9 @@
     (vec (take c (drop (- c arg1) (cycle xs))))))
 
 (defn swap [xs idx1 idx2]
-  (-> xs
-    (assoc idx1 (xs idx2))
-    (assoc idx2 (xs idx1))))
+  (assoc xs
+    idx1 (xs idx2)
+    idx2 (xs idx1)))
 
 (defmethod apply-dance-move :exchange [xs {:keys [::arg1 ::arg2]}]
   (swap xs arg1 arg2))
