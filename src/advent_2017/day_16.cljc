@@ -45,7 +45,6 @@
   (let [final-positions (iterate #(reduce apply-dance-move % data) starting-position)
         period          (loop [final-positions (rest final-positions) counter 1]
                           (if (= starting-position (first final-positions))
-                            (* counter (count data))
-                            (recur (rest final-positions) (inc counter))))
-        [start offset] ((juxt quot rem) (rem 1000000000 period) (count data))]
-    (apply str (reduce apply-dance-move (nth final-positions start) (take offset data)))))
+                            counter
+                            (recur (rest final-positions) (inc counter))))]
+    (apply str (nth final-positions (rem 1000000000 period)))))
