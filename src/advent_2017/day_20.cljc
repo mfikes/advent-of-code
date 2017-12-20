@@ -25,7 +25,7 @@
                             (iterate #(map step %) indexed)))
 
 (defn part-1 []
-  (take 500 closest-particle-idx))                          ; eyeball result and guess
+  (into [] (take 500) closest-particle-idx))                ; eyeball result and guess
 
 (defn remove-colliding [particles]
   (->> particles
@@ -38,4 +38,4 @@
                       (iterate (comp remove-colliding #(map step %)) indexed)))
 
 (defn part-2 []
-  (take 500 particle-count))                                ; eyeball result and guess
+  (into [] (take 500) particle-count))                      ; eyeball result and guess
