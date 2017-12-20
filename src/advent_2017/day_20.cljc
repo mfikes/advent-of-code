@@ -31,7 +31,7 @@
   (->> particles
     (group-by #(take 3 %))
     vals
-    (filter #(== 1 (count %)))
+    (remove #(> (count %) 1))
     (map first)))
 
 (def particle-count (eduction (map count)
