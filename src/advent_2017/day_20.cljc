@@ -19,10 +19,7 @@
     (concat p v a idx)))
 
 (defn dist [particle]
-  (->> particle
-    (take 3)
-    (map #(Math/abs ^long %))
-    (apply +)))
+  (transduce (comp (take 3) (map #(Math/abs ^long %))) + particle))
 
 (def closest-particle-idx (eduction (map #(sort-by dist %)) (map first) (map last)
                             (iterate #(map step %) indexed)))
