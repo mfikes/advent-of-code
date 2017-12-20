@@ -1,5 +1,6 @@
 (ns advent-2017.day-19
   (:require
+   [advent.util :as util]
    #?(:cljs [planck.core :refer [slurp]])
    [#?(:clj clojure.java.io :cljs planck.io) :as io]
    [clojure.string :as str]))
@@ -34,4 +35,4 @@
     (transduce (keep #(letters (get-in matrix %))) str path)))
 
 (defn part-2 []
-  (transduce identity (completing (fn [c _] (inc c))) 0 path))
+  (util/count path))
