@@ -1,4 +1,6 @@
-(ns advent-2017.day-03)
+(ns advent-2017.day-03
+  (:require
+   [advent.util :as util]))
 
 (def data 368078)
 
@@ -18,12 +20,10 @@
                         ffirst)]
     [next-location (conj used-locations next-location)]))
 
-(def spiral (->> [[1 0] #{[0 0] [1 0]}]
-              (iterate step) (map first)
-              (cons [0 0])))
+(def spiral (eduction (map first) (iterate step [[1 0] #{[0 0] [1 0]}])))
 
 (defn location [square]
-  (nth spiral (dec square)))
+  (util/nth spiral (- square 2)))
 
 (defn distance [[x y]]
   (+ (Math/abs x) (Math/abs y)))
@@ -45,4 +45,4 @@
                 (reduced value)
                 (assoc acc location value))))
     {[0 0] 1}
-    (rest spiral)))
+    spiral))
