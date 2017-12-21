@@ -35,7 +35,10 @@
   (let [size (if (zero? (rem (count (first input)) 2))
                2
                3)]
-    (into [] (comp (split-xf size) (map #(map pattern-map %)) join-xf) input)))
+    (into [] (comp (split-xf size)
+                   (map #(map pattern-map %))
+                   join-xf)
+      input)))
 
 (defn solve [iterations]
   (let [step (partial step* (make-pattern-map input))]
