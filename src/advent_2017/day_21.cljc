@@ -7,11 +7,11 @@
 
 (def input (-> "advent_2017/day_21/input" io/resource slurp))
 
+(def transpose (partial apply map vector))
+
 (defn dihedral [pattern]
-  (let [r #(apply map (comp reverse vector) %)
-        s #(map reverse %)
-        rotations (take 4 (iterate r (map seq pattern)))]
-    (concat rotations (map s rotations))))
+  (let [rotations (take 4 (iterate (comp reverse transpose) (map seq pattern)))]
+    (concat rotations (map reverse rotations))))
 
 (defn make-pattern-map [input]
   (transduce (comp (mapcat #(str/split % #" => "))
@@ -25,10 +25,10 @@
 (defn split-xf [size]
   (comp (map #(partition size %))
         (partition-all size)
-        (map #(apply map vector %))))
+        (map transpose)))
 
 (def join-xf
-  (comp (mapcat #(apply map vector %))
+  (comp (mapcat transpose)
         (map flatten)))
 
 (defn step* [pattern-map input]
