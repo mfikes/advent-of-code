@@ -1,6 +1,4 @@
-(ns advent-2017.day-03
-  (:require
-   [advent.util :as util]))
+(ns advent-2017.day-03)
 
 (def data 368078)
 
@@ -22,8 +20,11 @@
 
 (def spiral (eduction (map first) (iterate step [[1 0] #{[0 0] [1 0]}])))
 
+(defn nth' [coll n]
+  (transduce (drop n) (completing #(reduced %2)) nil coll))
+
 (defn location [square]
-  (util/nth spiral (- square 2)))
+  (nth' spiral (- square 2)))
 
 (defn distance [[x y]]
   (+ (Math/abs x) (Math/abs y)))

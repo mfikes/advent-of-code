@@ -1,6 +1,5 @@
 (ns advent-2017.day-21
   (:require
-   [advent.util :as util]
    #?(:cljs [planck.core :refer [slurp]])
    [#?(:clj clojure.java.io :cljs planck.io) :as io]
    [clojure.string :as str]))
@@ -42,7 +41,7 @@
 (defn solve [iterations]
   (let [step (partial step* (make-pattern-map input))]
     (->> iterations
-      (util/nth (iterate step [".#." "..#" "###"]))
+      (nth (iterate step [".#." "..#" "###"]))
       (transduce (comp (map #(filter #{\#} %))
                        (map count))
         +))))

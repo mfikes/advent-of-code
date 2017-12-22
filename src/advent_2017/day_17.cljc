@@ -1,8 +1,9 @@
-(ns advent-2017.day-17
-  (:require
-   [advent.util :as util]))
+(ns advent-2017.day-17)
 
 (def input 345)
+
+(defn nth' [coll n]
+  (transduce (drop n) (completing #(reduced %2)) nil coll))
 
 (defn spin [step [current-pos value buffer]]
   (let [new-pos (inc (mod (+ current-pos step) value))]
@@ -11,7 +12,7 @@
                            (into (subvec buffer new-pos)))]))
 
 (defn part-1 []
-  (let [[current-pos _ buffer] (util/nth (iterate (partial spin input) [0 1 [0]]) 2017)]
+  (let [[current-pos _ buffer] (nth' (iterate (partial spin input) [0 1 [0]]) 2017)]
     (buffer (inc current-pos))))
 
 (defn spin' [step [current-pos value after-zero]]
@@ -21,4 +22,4 @@
                            after-zero)]))
 
 (defn part-2 []
-  (last (util/nth (iterate (partial spin' input) [0 1 nil]) 50000000)))
+  (last (nth' (iterate (partial spin' input) [0 1 nil]) 50000000)))
