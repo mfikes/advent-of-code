@@ -32,21 +32,16 @@
         (map flatten)))
 
 (defn step* [pattern-map input]
-  (let [size (if (zero? (rem (count (first input)) 2))
+  (let [size (if (even? (count (first input)))
                2
                3)]
-    (into [] (comp (split-xf size)
-                   (map #(map pattern-map %))
-                   join-xf)
-      input)))
+    (eduction (split-xf size) (map #(map pattern-map %)) join-xf input)))
 
 (defn solve [iterations]
   (let [step (partial step* (make-pattern-map input))]
     (->> iterations
       (util/nth (iterate step [".#." "..#" "###"]))
-      flatten
-      (filter #{\#})
-      count)))
+      (transduce (comp (map #(filter #{\#} %)) (map count)) +))))
 
 (defn part-1 []
   (solve 5))
