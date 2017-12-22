@@ -27,21 +27,25 @@
         (partition-all size)
         (map transpose)))
 
-(def join-xf
-  (comp (mapcat transpose)
-        (map flatten)))
+(def join-xf (comp (mapcat transpose)
+                   (map flatten)))
 
 (defn step* [pattern-map input]
   (let [size (if (even? (count (first input)))
                2
                3)]
-    (eduction (split-xf size) (map #(map pattern-map %)) join-xf input)))
+    (eduction (split-xf size)
+              (map #(map pattern-map %))
+              join-xf
+              input)))
 
 (defn solve [iterations]
   (let [step (partial step* (make-pattern-map input))]
     (->> iterations
       (util/nth (iterate step [".#." "..#" "###"]))
-      (transduce (comp (map #(filter #{\#} %)) (map count)) +))))
+      (transduce (comp (map #(filter #{\#} %))
+                       (map count))
+        +))))
 
 (defn part-1 []
   (solve 5))
