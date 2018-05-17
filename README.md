@@ -11,5 +11,5 @@ clj
 ## Self-Hosted ClojureScript
 
 ```
-planck -Kc `clojure -Spath`
+plk
 ```
