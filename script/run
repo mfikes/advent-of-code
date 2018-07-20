@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-planck -n 51638 -Kc `clojure -Spath`
