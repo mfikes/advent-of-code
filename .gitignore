@@ -1,6 +1,5 @@
 /target
 /lib
 /.planck_cache
-/advent-of-cljs.iml
 /.idea
 /pom.xml
