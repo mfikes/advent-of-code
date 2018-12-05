@@ -6,12 +6,6 @@
 
 (def input (-> "advent_2018/day_05/input" io/resource slurp))
 
-(defn fixed-point-by [g f x]
-  (reduce #(if (= (g %1) (g %2))
-             (reduced %1)
-             %2)
-    (iterate f x)))
-
 (defn lower-case [unit]
   #?(:clj  (Character/toLowerCase ^Character unit)
      :cljs (string/lower-case unit)))
@@ -20,19 +14,16 @@
   (and (not= x y)
        (= (lower-case x) (lower-case y))))
 
-(defn react [polymer]
-  (lazy-seq
-    (let [[x y & more] polymer]
-      (cond
-        (nil? y)      [x]
-        (reacts? x y) (react more)
-        :else         (cons x (react (rest polymer)))))))
+(defn add-unit [polymer unit]
+  (if (some-> (peek polymer) (reacts? unit))
+    (pop polymer)
+    (conj polymer unit)))
 
-(defn fully-react [polymer]
-  (fixed-point-by count react polymer))
+(defn react [polymer]
+  (reduce add-unit [] polymer))
 
 (defn part-1 []
-  (count (fully-react input)))
+  (count (react input)))
 
 (defn remove-units [x polymer]
   (remove (fn [y]
@@ -42,5 +33,5 @@
 
 (defn part-2 []
   (->> (into #{} (map lower-case input))
-    (map #(count (fully-react (remove-units % input))))
+    (map #(count (react (remove-units % input))))
     (apply min)))
