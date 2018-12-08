@@ -7,11 +7,11 @@
 
 (defn parse-license [input]
   (let [node+more (fn node+more [[child-count metadata-count & more]]
-                    (let [[children more] (reduce (fn [[children more] _]
-                                                    (let [[child more] (node+more more)]
-                                                      [(conj children child) more]))
-                                            [[] more]
-                                            (range child-count))
+                    (let [[children more] (-> (iterate (fn [[children more]]
+                                                          (let [[child more] (node+more more)]
+                                                            [(conj children child) more]))
+                                                 [[] more])
+                                            (nth child-count))
                           [metadata more] (split-at metadata-count more)]
                       [{:children children, :metadata metadata} more]))
         nums      (map read-string (re-seq #"\d+" input))]
