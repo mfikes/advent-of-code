@@ -16,7 +16,7 @@
     (first (parse-node (map read-string (re-seq #"\d+" input))))))
 
 (defn part-1 []
-  (->> (tree-seq (comp seq :children) :children (parse-license input))
+  (->> (tree-seq (constantly true) :children (parse-license input))
     (mapcat :metadata)
     (reduce +)))
 
