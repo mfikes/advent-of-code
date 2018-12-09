@@ -1,5 +1,8 @@
 (ns advent-2018.day-09)
 
+(defn nth' [coll n]
+  (transduce (drop n) (completing #(reduced %2)) nil coll))
+
 (defn create-game [players]
   {:players players
    :player  1
@@ -35,7 +38,7 @@
 
 (defn solve [players last-marble]
   (let [game (-> (iterate advance (create-game players))
-               (nth (dec last-marble)))]
+               (nth' (dec last-marble)))]
     (apply max (vals (:scores game)))))
 
 (defn part-1 []
