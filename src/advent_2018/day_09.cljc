@@ -3,15 +3,15 @@
 (defn create-game [players]
   {:players players
    :player  1
-   :index   1
+   :index   1.0
    :marble  1
-   :circle  (sorted-map 0 0 1 1)
+   :circle  (sorted-map 0.0 0 1.0 1)
    :scores  (zipmap (map inc (range players)) (repeat 0))})
 
 (defn place-index [circle index]
   (let [[lb ub] (keys (rest (concat (subseq circle >= index) (cycle circle))))]
     (if (< lb ub)
-      (/ (+ lb ub) 2)
+      (/ (+ lb ub) 2.0)
       (inc (ffirst (rseq circle))))))
 
 (defn counter-clockwise-index [circle index n]
