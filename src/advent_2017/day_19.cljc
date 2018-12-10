@@ -1,5 +1,6 @@
 (ns advent-2017.day-19
   (:require
+   [advent.util :refer [count']]
    #?(:cljs [planck.core :refer [slurp]])
    [#?(:clj clojure.java.io :cljs planck.io) :as io]
    [clojure.string :as str]))
@@ -32,9 +33,6 @@
 (defn part-1 []
   (let [letters (set "ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
     (transduce (keep #(letters (get-in matrix %))) str path)))
-
-(defn count' [coll]
-  (transduce identity (completing (fn [c _] (inc c))) 0 coll))
 
 (defn part-2 []
   (count' path))

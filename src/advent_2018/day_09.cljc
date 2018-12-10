@@ -1,7 +1,6 @@
-(ns advent-2018.day-09)
-
-(defn nth' [coll n]
-  (transduce (drop n) (completing #(reduced %2)) nil coll))
+(ns advent-2018.day-09
+  (:require
+   [advent.util :refer [nth']]))
 
 (defn create-game [players]
   {:players players

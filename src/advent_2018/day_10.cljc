@@ -1,5 +1,6 @@
 (ns advent-2018.day-10
   (:require
+   [advent.util :refer [count' nth']]
    #?(:cljs [planck.core :refer [line-seq read-string]])
    [#?(:clj clojure.java.io :cljs planck.io) :as io]
    [clojure.string :as string]))
@@ -36,9 +37,9 @@
 
 (defn part-1 []
   (let [initial-points (map read-point input-lines)
-        points (first (drop-while big? (iterate #(map update-point %) initial-points)))]
+        points (nth' (eduction (drop-while big?) (iterate #(map update-point %) initial-points)) 0)]
     (print-raster (rasterize points))))
 
 (defn part-2 []
   (let [initial-points (map read-point input-lines)]
-    (count (take-while big? (iterate #(map update-point %) initial-points)))))
+    (count' (eduction (take-while big?) (iterate #(map update-point %) initial-points)))))

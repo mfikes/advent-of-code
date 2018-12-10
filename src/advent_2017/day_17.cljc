@@ -1,9 +1,8 @@
-(ns advent-2017.day-17)
+(ns advent-2017.day-17
+  (:require
+   [advent.util :refer [nth']]))
 
 (def input 345)
-
-(defn nth' [coll n]
-  (transduce (drop n) (completing #(reduced %2)) nil coll))
 
 (defn spin [step [current-pos value buffer]]
   (let [new-pos (inc (mod (+ current-pos step) value))]

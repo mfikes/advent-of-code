@@ -1,5 +1,6 @@
 (ns advent-2017.day-25
   (:require
+   [advent.util :refer [nth']]
    #?(:cljs [planck.core :refer [slurp read-string]])
    [#?(:clj clojure.java.io :cljs planck.io) :as io]
    [clojure.string :as str]))
@@ -34,9 +35,6 @@
       (update :one-locs (case write 1 conj 0 disj) (:loc state))
       (update :loc (case move :left dec :right inc))
       (assoc :state continue))))
-
-(defn nth' [coll n]
-  (transduce (drop n) (completing #(reduced %2)) nil coll))
 
 (defn part-1 []
   (let [step (partial step* (parse-program input))
