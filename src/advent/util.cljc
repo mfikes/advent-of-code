@@ -18,3 +18,13 @@
    (if (neg? n)
      not-found
      (transduce (drop n) (completing #(reduced %2)) not-found coll))))
+
+(defn some'
+  "Like core some, but when applied to a directly reduceable coll, does not
+  force the collection to be realized fully in memory."
+  [pred coll]
+  (reduce (fn [_ x]
+            (when (pred x)
+              (reduced x)))
+    nil
+    coll))
