@@ -28,3 +28,10 @@
               (reduced x)))
     nil
     coll))
+
+(defn fixed-point [f x]
+  (reduce #(if (= %1 %2) (reduced %1) %2)
+    (iterate f x)))
+
+(defn map-vals [f m]
+  (reduce-kv (fn [m k v] (assoc m k (f v))) {} m))

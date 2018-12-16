@@ -1,5 +1,6 @@
 (ns advent-2018.day-04
   (:require
+   [advent.util :refer [map-vals]]
    #?(:cljs [planck.core :refer [line-seq read-string]])
    [#?(:clj clojure.java.io :cljs planck.io) :as io]))
 
@@ -7,9 +8,6 @@
 
 (defn parse-int [s]
   #?(:clj (Integer/parseInt s) :cljs (js/parseInt s)))
-
-(defn map-vals [f m]
-  (reduce-kv (fn [m k v] (assoc m k (f v))) {} m))
 
 (defn mode [coll]
   (apply max-key val (frequencies coll)))
