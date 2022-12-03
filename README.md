@@ -1,6 +1,6 @@
 # Advent of Code
 
-[Advent of Code](http://adventofcode.com) in Clojure and Self-Hosted ClojureScript.
+[Advent of Code](http://adventofcode.com) in Clojure, Self-Hosted ClojureScript, and HP-85 BASIC.
 
 ## Clojure
 
