@@ -3,3 +3,8 @@
 /.planck_cache
 /.idea
 /pom.xml
+.cpcache
+.DS_Store
+.lsp
+/advent.xcodeproj/xcuserdata
+/advent.xcodeproj/project.xcworkspace/xcuserdata/
