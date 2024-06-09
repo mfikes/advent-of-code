@@ -2,14 +2,27 @@
 
 @implementation ADProblem
 
-- (id)part1
+- (nullable instancetype)initWithInputPath:(nullable NSString*)inputPath
 {
-    return @"TBD";
+    if ((self = [super init])) {
+        _inputPath = [inputPath copy];
+    }
+    return self;
 }
 
-- (id)part2
+- (nullable NSString*)input {
+    NSString* fullInputPath = _inputPath ? [NSString stringWithFormat:@"resources/%@/input", _inputPath] : nil;
+    return [NSString stringWithContentsOfFile:fullInputPath encoding:NSUTF8StringEncoding error:nil];
+}
+
+- (nullable id)part1
 {
-    return @"TBD";
+    return nil;
+}
+
+- (nullable id)part2
+{
+    return nil;
 }
 
 - (void)solve
