@@ -1,8 +1,10 @@
 #import "A17D02.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @implementation A17D02
 
-- (nonnull NSArray<NSArray<NSNumber*>*>*)data
+- (NSArray<NSArray<NSNumber*>*>*)data
 {
     NSMutableArray<NSArray<NSNumber*>*>* rv = [[NSMutableArray alloc] init];
     for (NSString* line in self.inputLines) {
@@ -24,7 +26,7 @@
     return @(sum);
 }
 
-- (id)part1 {
+- (nullable id)part1 {
     return [self solve:^int(NSArray<NSNumber*>* arr) {
         NSNumber *maxNumber = [arr valueForKeyPath:@"@max.self"];
         NSNumber *minNumber = [arr valueForKeyPath:@"@min.self"];
@@ -32,7 +34,7 @@
     }];
 }
 
-- (id)part2 {
+- (nullable id)part2 {
     return [self solve:^int(NSArray<NSNumber*>* arr) {
         for (NSNumber* x in arr) {
             for (NSNumber* y in arr) {
@@ -46,3 +48,5 @@
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

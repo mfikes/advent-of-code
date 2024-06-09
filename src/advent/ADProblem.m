@@ -1,5 +1,7 @@
 #import "ADProblem.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @implementation ADProblem
 
 - (nullable instancetype)initWithInputPath:(nullable NSString*)inputPath
@@ -55,3 +57,5 @@
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

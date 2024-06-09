@@ -1,5 +1,7 @@
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface ADProblem : NSObject
 
 @property (nonatomic, copy, readonly, nullable) NSString* inputPath;
@@ -18,3 +20,5 @@
 - (void)solve;
 
 @end
+
+NS_ASSUME_NONNULL_END

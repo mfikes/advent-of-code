@@ -1,5 +1,7 @@
 #import "A17D01.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @implementation A17D01
 
 - (NSArray<NSNumber*>*)data {
@@ -11,7 +13,7 @@
     return [rv copy];
 }
 
-- (id)solveWithData:(NSArray<NSNumber*>*) data offset:(NSUInteger)offset {
+- (nullable id)solveWithData:(NSArray<NSNumber*>*) data offset:(NSUInteger)offset {
     int sum = 0;
     for (NSUInteger i=0; i<data.count; i++) {
         if ([data[i] isEqualToNumber:data[(i + offset)%data.count]]) {
@@ -21,16 +23,18 @@
     return @(sum);
 }
 
-- (id)part1
+- (nullable id)part1
 {
     NSArray<NSNumber*>* data = [self data];
     return [self solveWithData:data offset:1];
 }
 
-- (id)part2
+- (nullable id)part2
 {
     NSArray<NSNumber*>* data = [self data];
     return [self solveWithData:data offset:data.count/2];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END
