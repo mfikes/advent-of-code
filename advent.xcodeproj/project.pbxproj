@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		ED924A2B2C161EF90085B3B5 /* A17D02.m in Sources */ = {isa = PBXBuildFile; fileRef = ED924A2A2C161EF80085B3B5 /* A17D02.m */; };
+		ED924A2E2C1635E80085B3B5 /* A17D03.m in Sources */ = {isa = PBXBuildFile; fileRef = ED924A2C2C1635E80085B3B5 /* A17D03.m */; };
 		EDDC48AF2C15EDE900D9B8FD /* A17D01.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDC48AE2C15EDE800D9B8FD /* A17D01.m */; };
 		EDDC48B22C15FE8700D9B8FD /* ADProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDC48B12C15FE8700D9B8FD /* ADProblem.m */; };
 		EDEA26CC2C15E82200C043D4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEA26CB2C15E82200C043D4 /* main.m */; };
@@ -28,6 +29,8 @@
 /* Begin PBXFileReference section */
 		ED924A292C161EF80085B3B5 /* A17D02.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A17D02.h; sourceTree = "<group>"; };
 		ED924A2A2C161EF80085B3B5 /* A17D02.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A17D02.m; sourceTree = "<group>"; };
+		ED924A2C2C1635E80085B3B5 /* A17D03.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A17D03.m; sourceTree = "<group>"; };
+		ED924A2D2C1635E80085B3B5 /* A17D03.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A17D03.h; sourceTree = "<group>"; };
 		EDDC48AD2C15EDE800D9B8FD /* A17D01.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A17D01.h; sourceTree = "<group>"; };
 		EDDC48AE2C15EDE800D9B8FD /* A17D01.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A17D01.m; sourceTree = "<group>"; };
 		EDDC48B02C15FE8700D9B8FD /* ADProblem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADProblem.h; path = src/advent/ADProblem.h; sourceTree = "<group>"; };
@@ -54,6 +57,8 @@
 				EDDC48AE2C15EDE800D9B8FD /* A17D01.m */,
 				ED924A292C161EF80085B3B5 /* A17D02.h */,
 				ED924A2A2C161EF80085B3B5 /* A17D02.m */,
+				ED924A2D2C1635E80085B3B5 /* A17D03.h */,
+				ED924A2C2C1635E80085B3B5 /* A17D03.m */,
 			);
 			name = A2017;
 			path = src/advent_2017;
@@ -137,6 +142,7 @@
 			files = (
 				EDDC48B22C15FE8700D9B8FD /* ADProblem.m in Sources */,
 				EDEA26CC2C15E82200C043D4 /* main.m in Sources */,
+				ED924A2E2C1635E80085B3B5 /* A17D03.m in Sources */,
 				ED924A2B2C161EF90085B3B5 /* A17D02.m in Sources */,
 				EDDC48AF2C15EDE900D9B8FD /* A17D01.m in Sources */,
 			);
