@@ -37,8 +37,21 @@
 
 - (void)solve
 {
-    NSLog(@"%@ part1: %@", [self class], [self part1]);
-    NSLog(@"%@ part2: %@", [self class], [self part2]);
+    NSDate *startTime;
+    NSDate *endTime;
+    NSTimeInterval elapsedTime;
+
+    startTime = [NSDate date];
+    id part1Result = [self part1];
+    endTime = [NSDate date];
+    elapsedTime = [endTime timeIntervalSinceDate:startTime];
+    NSLog(@"%@ part1: %@ (%.3f ms)", [self class], part1Result, 1000*elapsedTime);
+
+    startTime = [NSDate date];
+    id part2Result = [self part2];
+    endTime = [NSDate date];
+    elapsedTime = [endTime timeIntervalSinceDate:startTime];
+    NSLog(@"%@ part2: %@ (%.3f ms)", [self class], part2Result, 1000*elapsedTime);
 }
 
 @end
