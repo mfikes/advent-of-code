@@ -10,9 +10,19 @@
     return self;
 }
 
-- (nullable NSString*)input {
+- (nullable NSString*)input
+{
     NSString* fullInputPath = _inputPath ? [NSString stringWithFormat:@"resources/%@/input", _inputPath] : nil;
     return [NSString stringWithContentsOfFile:fullInputPath encoding:NSUTF8StringEncoding error:nil];
+}
+
+- (nullable NSArray<NSString *> *)inputLines
+{
+    NSMutableArray<NSString *> *lines = [[self.input componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] mutableCopy];
+    if (lines.count > 0 && [lines.lastObject isEqualToString:@""]) {
+        [lines removeLastObject];
+    }
+    return [lines copy];
 }
 
 - (nullable id)part1
