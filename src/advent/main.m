@@ -2,6 +2,7 @@
 #import "A17D01.h"
 #import "A17D02.h"
 #import "A17D03.h"
+#import "A17D04.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
@@ -9,7 +10,8 @@ int main(int argc, const char * argv[]) {
         NSArray<ADProblem*>* problems = @[
             //[[A17D01 alloc] initWithInputPath:@"advent_2017/day_01"],
             //[[A17D02 alloc] initWithInputPath:@"advent_2017/day_02"],
-            [[A17D03 alloc] initWithInputPath:nil],
+            //[[A17D03 alloc] initWithInputPath:nil],
+            [[A17D04 alloc] initWithInputPath:@"advent_2017/day_04"],
         ];
         
         [problems makeObjectsPerformSelector:@selector(solve)];
