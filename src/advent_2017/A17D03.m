@@ -2,7 +2,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Location : NSObject
+@interface Location : NSObject<NSCopying>
 
 @property (nonatomic, assign, readonly) int x;
 
@@ -66,6 +66,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString*)description
 {
     return [NSString stringWithFormat:@"[%d %d]", _x, _y];
+}
+
+- (id)copyWithZone:(nullable NSZone *)zone {
+    return self;
 }
 
 @end
@@ -139,6 +143,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable id)part2
 {
+    NSMutableDictionary<Location*, NSNumber*>* acc = [[NSMutableDictionary alloc] init];
+    [acc setObject:@1 forKey:[[Location alloc] initWithX:0 y:0]];
+    
+    int n = 0;
+    for (;;) {
+        Location* location = [self nthSpiral:n++];
+        int sum = 0;
+        for (Location* adjacentLocation in [self adjacentLocations:location]) {
+            sum += acc[adjacentLocation].intValue;
+        }
+        if ([self data] < sum) {
+            return @(sum);
+        } else {
+            acc[location] = @(sum);
+        }
+    }
     return nil;
 }
 
