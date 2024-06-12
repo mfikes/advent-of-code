@@ -2,29 +2,43 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@implementation ADProblem
+@implementation ADProblem {
+    NSString* _input;
+    NSArray<NSString*>* _inputLines;
+}
 
 - (nullable instancetype)initWithInputPath:(nullable NSString*)inputPath
 {
     if ((self = [super init])) {
         _inputPath = [inputPath copy];
+        _input = nil;
+        _inputLines = nil;
     }
     return self;
 }
 
-- (nullable NSString*)input
+- (NSString*)input
 {
-    NSString* fullInputPath = _inputPath ? [NSString stringWithFormat:@"resources/%@/input", _inputPath] : nil;
-    return [NSString stringWithContentsOfFile:fullInputPath encoding:NSUTF8StringEncoding error:nil];
+    if (!_input) {
+        NSString* fullInputPath = _inputPath ? [NSString stringWithFormat:@"resources/%@/input", _inputPath] : nil;
+        _input = [NSString stringWithContentsOfFile:fullInputPath encoding:NSUTF8StringEncoding error:nil];
+        if (!_input) {
+            _input = @"";
+        }
+    }
+    return _input;
 }
 
-- (nullable NSArray<NSString *> *)inputLines
+- (NSArray<NSString *> *)inputLines
 {
-    NSMutableArray<NSString *> *lines = [[self.input componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] mutableCopy];
-    if (lines.count > 0 && [lines.lastObject isEqualToString:@""]) {
-        [lines removeLastObject];
+    if (!_inputLines) {
+        NSMutableArray<NSString *> *lines = [[self.input componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] mutableCopy];
+        if (lines.count > 0 && [lines.lastObject isEqualToString:@""]) {
+            [lines removeLastObject];
+        }
+        _inputLines = [lines copy];
     }
-    return [lines copy];
+    return _inputLines;
 }
 
 - (nullable id)part1
