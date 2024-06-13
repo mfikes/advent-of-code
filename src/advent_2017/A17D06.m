@@ -13,44 +13,36 @@ NS_ASSUME_NONNULL_BEGIN
     return [rv copy];
 }
 
-- (NSDictionary<NSNumber*, NSNumber*>*)redistribute:(NSDictionary<NSNumber*, NSNumber*>*)banks
+- (NSArray<NSNumber*>*)redistribute:(NSArray<NSNumber*>*)banks
 {
-    NSNumber* maxValue = [[banks allValues] valueForKeyPath:@"@max.self"];
-    NSMutableArray<NSNumber*>* keys = [[NSMutableArray alloc] init];
-    [banks enumerateKeysAndObjectsUsingBlock:^(NSNumber* key, NSNumber* value, BOOL *stop) {
-        if ([value isEqualToNumber:maxValue]) {
-            [keys addObject:key];
-        }
-    }];
-    NSNumber* maxIndex = [keys valueForKeyPath:@"@min.self"];
-    NSMutableArray<NSNumber*>* targetIndexes = [[NSMutableArray alloc] init];
-    for (NSUInteger i = 0; i<banks[maxIndex].intValue; i++) {
-        [targetIndexes addObject:@((maxIndex.integerValue + 1 + i) % banks.count)];
-    }
-    NSMutableDictionary<NSNumber*, NSNumber*>* result = [banks mutableCopy];
+    NSUInteger count = banks.count;
+    NSInteger maxValue = [[banks valueForKeyPath:@"@max.self"] integerValue];
+    NSInteger maxIndex = [banks indexOfObject:@(maxValue)];
+    
+    NSMutableArray<NSNumber*>* result = [banks mutableCopy];
     result[maxIndex] = @0;
-    for (NSNumber* targetIndex in targetIndexes) {
+    
+    for (NSInteger i = 0; i < maxValue; i++) {
+        NSInteger targetIndex = (maxIndex + 1 + i) % count;
         result[targetIndex] = @(result[targetIndex].integerValue + 1);
     }
+    
     return [result copy];
 }
 
 - (NSArray<NSNumber*>*)solve:(NSArray<NSNumber*>*)banks
 {
-    NSMutableDictionary<NSNumber*, NSNumber*>* temp = [[NSMutableDictionary alloc] init];
-    for (NSUInteger i=0; i<[banks count]; i++) {
-        temp[@(i)] = banks[i];
-    }
-    NSDictionary<NSNumber*, NSNumber*>* banksMap = [temp copy];
+    NSMutableDictionary<NSString*, NSNumber*>* lastSeen = [[NSMutableDictionary alloc] init];
     NSUInteger steps = 0;
-    NSMutableDictionary<NSDictionary<NSNumber*, NSNumber*>*, NSNumber*>* lastSeen = [[NSMutableDictionary alloc] init];
-    for (;;) {
-        NSNumber* s = lastSeen[banksMap];
+    
+    while (true) {
+        NSString* banksKey = [banks componentsJoinedByString:@","];
+        NSNumber* s = lastSeen[banksKey];
         if (s) {
             return @[@(steps), s];
         }
-        lastSeen[banksMap] = @(steps);
-        banksMap = [self redistribute:banksMap];
+        lastSeen[banksKey] = @(steps);
+        banks = [self redistribute:banks];
         steps++;
     }
 }
