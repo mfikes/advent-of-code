@@ -37,7 +37,9 @@
           (when-let [held (:held program)]
             (let [weights (map weight held)]
               (when-not (apply == weights)
+                #_(prn program weights)
                 (let [unique-weight ((set/map-invert (frequencies weights)) 1)]
+                  (prn unique-weight (lookup (nth held (.indexOf weights unique-weight))))
                   (+ (:weight (lookup (nth held (.indexOf weights unique-weight))))
                      (- (apply min weights) (apply max weights))))))))
     data))
