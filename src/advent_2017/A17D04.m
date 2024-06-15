@@ -21,11 +21,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSUInteger)solveWithTransform:(NSString* (^)(NSString*))transformBlock
 {
-    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(NSString *line, NSDictionary *bindings) {
-        return [self isValidPassphrase:line withTransform:transformBlock];
+    NSUInteger __block count = 0;
+    [self.input enumerateLinesUsingBlock:^(NSString*line, BOOL* stop) {
+        if ([self isValidPassphrase:line withTransform:transformBlock]) {
+            count++;
+        }
     }];
-    
-    return [self.inputLines filteredArrayUsingPredicate:predicate].count;
+    return count;
 }
 
 - (nullable id)part1

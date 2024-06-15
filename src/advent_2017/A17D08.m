@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!_data) {
         NSMutableArray<Instruction*>* tmp = [[NSMutableArray alloc] init];
         
-        for (NSString* line in self.inputLines) {
+        [self.input enumerateLinesUsingBlock:^(NSString* line, BOOL *stop) {
             NSArray<NSString*>* components = [line componentsSeparatedByString:@" "];
             
             NSString* target = components[0];
@@ -89,8 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                                        lhs:lhs
                                                                        cmp:comparisonBlocks[cmpStr]];
             [tmp addObject:instruction];
-        }
-        
+        }];
         _data = [tmp copy];
     }
     

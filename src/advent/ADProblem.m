@@ -29,18 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
     return _input;
 }
 
-- (NSArray<NSString *> *)inputLines
-{
-    if (!_inputLines) {
-        NSMutableArray<NSString *> *lines = [[self.input componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] mutableCopy];
-        if (lines.count > 0 && [lines.lastObject isEqualToString:@""]) {
-            [lines removeLastObject];
-        }
-        _inputLines = [lines copy];
-    }
-    return _inputLines;
-}
-
 - (nullable id)part1
 {
     return nil;

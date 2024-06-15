@@ -41,13 +41,13 @@ NS_ASSUME_NONNULL_BEGIN
     if (!_data) {
         NSMutableArray<Item*>* result = [[NSMutableArray alloc] init];
         NSArray<NSString*>* emptyHeld = [[NSArray alloc] init];
-        for (NSString* line in self.inputLines) {
+        [self.input enumerateLinesUsingBlock:^(NSString* line, BOOL* stop) {
             NSArray<NSString*>* parts = [line componentsSeparatedByString:@" -> "];
             NSArray<NSString*>* nameAndWeight = [parts[0] componentsSeparatedByString:@" ("];
             [result addObject:[[Item alloc] initWithName:nameAndWeight[0]
                                                   weight:nameAndWeight[1].integerValue
                                                     held:parts.count == 2 ? [parts[1] componentsSeparatedByString:@", "] : emptyHeld]];
-        }
+        }];
         _data = [result copy];
     }
     return _data;

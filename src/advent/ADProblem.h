@@ -8,8 +8,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) NSString* input;
 
-@property (nonatomic, copy, readonly) NSArray<NSString*>* inputLines;
-
 - (nullable instancetype)init NS_UNAVAILABLE;
 
 - (nullable instancetype)initWithInputPath:(nullable NSString *)inputPath NS_DESIGNATED_INITIALIZER;

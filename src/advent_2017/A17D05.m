@@ -6,10 +6,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray<NSNumber*>*) data
 {
-    NSMutableArray<NSNumber*>* rv = [[NSMutableArray alloc] initWithCapacity:self.inputLines.count];
-    for (NSString* line in self.inputLines) {
+    NSMutableArray<NSNumber*>* rv = [[NSMutableArray alloc] init];
+    [self.input enumerateLinesUsingBlock:^(NSString* line, BOOL* stop) {
         [rv addObject:@([line intValue])];
-    }
+    }];
     return [rv copy];
 }
 

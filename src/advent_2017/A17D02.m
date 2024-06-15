@@ -7,14 +7,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<NSArray<NSNumber*>*>*)data
 {
     NSMutableArray<NSArray<NSNumber*>*>* rv = [[NSMutableArray alloc] init];
-    for (NSString* line in self.inputLines) {
+    [self.input enumerateLinesUsingBlock:^(NSString* line, BOOL* stop) {
         NSArray<NSString*>* strings = [line componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         NSMutableArray<NSNumber*>* numbers = [[NSMutableArray alloc] initWithCapacity:strings.count];
         for (NSString* string in strings) {
             [numbers addObject:@([string intValue])];
         }
         [rv addObject:[numbers copy]];
-    }
+    }];
     return [rv copy];
 }
 
