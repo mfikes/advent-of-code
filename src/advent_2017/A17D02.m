@@ -19,10 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (id)solve:(int (^)(NSArray<NSNumber*>*))block {
-    int sum = 0;
-    for (NSArray<NSNumber*>* arr in self.data) {
+    int __block sum = 0;
+    [[self data] enumerateObjectsUsingBlock:^(NSArray<NSNumber *>* arr, NSUInteger idx, BOOL* stop) {
         sum += block(arr);
-    }
+    }];
     return @(sum);
 }
 

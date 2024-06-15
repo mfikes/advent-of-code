@@ -52,9 +52,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<Location*>*)addLocations:(NSArray<Location*>*)others
 {
     NSMutableArray<Location*>* rv = [[NSMutableArray alloc] initWithCapacity:others.count];
-    for (Location* other in others) {
+    [others enumerateObjectsUsingBlock:^(Location* other, NSUInteger idx, BOOL* stop) {
         [rv addObject:[self add:other]];
-    }
+    }];
     return [rv copy];
 }
 

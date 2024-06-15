@@ -107,21 +107,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable id)part1
 {
-    NSDictionary<NSString*, NSNumber*>* registers = @{};
-    for (Instruction* instruction in [self data]) {
+    NSDictionary<NSString*, NSNumber*>* __block registers = @{};
+    [[self data] enumerateObjectsUsingBlock:^(Instruction* instruction, NSUInteger idx, BOOL* stop) {
         registers = [self applyInstruction:instruction toRegisters:registers];
-    }
+    }];
     return [registers.allValues valueForKeyPath:@"@max.self"];
 }
 
 - (nullable id)part2
 {
-    NSUInteger overallMax = 0;
-    NSDictionary<NSString*, NSNumber*>* registers = @{};
-    for (Instruction* instruction in [self data]) {
+    NSUInteger __block overallMax = 0;
+    NSDictionary<NSString*, NSNumber*>* __block registers = @{};
+    [[self data] enumerateObjectsUsingBlock:^(Instruction* instruction, NSUInteger idx, BOOL* stop) {
         registers = [self applyInstruction:instruction toRegisters:registers];
         overallMax = MAX(overallMax, ((NSNumber*)[registers.allValues valueForKeyPath:@"@max.self"]).integerValue);
-    }
+    }];
     return @(overallMax);
 }
 

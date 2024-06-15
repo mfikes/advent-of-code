@@ -13,9 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isValidPassphrase:(NSString*)passphrase
             withTransform:(NSString* (^)(NSString*))transformBlock {
     NSMutableArray<NSString*>* components = [[NSMutableArray alloc] init];
-    for (NSString* component in [passphrase componentsSeparatedByString:@" "]) {
-        [components addObject:transformBlock ? transformBlock(component) : component];
-    }
+    [passphrase enumerateSubstringsInRange:NSMakeRange(0, passphrase.length)
+                                   options:NSStringEnumerationByWords
+                                usingBlock:^(NSString* substring, NSRange substringRange, NSRange enclosingRange, BOOL* stop) {
+        [components addObject:transformBlock ? transformBlock(substring) : substring];
+    }];
     return [self areAllElementsDistinct:components];
 }
 
@@ -41,9 +43,11 @@ NS_ASSUME_NONNULL_BEGIN
 {
     return @([self solveWithTransform:^NSString* (NSString* input) {
         NSMutableArray *characters = [NSMutableArray arrayWithCapacity:[input length]];
-        for (int i = 0; i < [input length]; i++) {
-            [characters addObject:[NSString stringWithFormat:@"%c", [input characterAtIndex:i]]];
-        }
+        [input enumerateSubstringsInRange:NSMakeRange(0, input.length)
+                                  options:NSStringEnumerationByComposedCharacterSequences
+                               usingBlock:^(NSString* substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+            [characters addObject:substring];
+        }];
         NSArray *sortedCharacters = [characters sortedArrayUsingSelector:@selector(compare:)];
         return [sortedCharacters componentsJoinedByString:@""];
     }]);

@@ -12,13 +12,15 @@ typedef NS_ENUM(NSUInteger, A17D09State) {
 
 - (NSDictionary<NSString*, NSNumber*>*)solution
 {
-    A17D09State state = A17D09StateGroup;
-    NSUInteger level = 1;
-    NSUInteger score = 0;
-    NSUInteger count = 0;
+    A17D09State __block state = A17D09StateGroup;
+    NSUInteger __block level = 1;
+    NSUInteger __block score = 0;
+    NSUInteger __block count = 0;
     
-    for (NSUInteger idx=0; idx<self.input.length; idx++) {
-        unichar ch = [self.input characterAtIndex:idx];
+    [self.input enumerateSubstringsInRange:NSMakeRange(0, self.input.length)
+                                   options:NSStringEnumerationByComposedCharacterSequences
+                                usingBlock:^(NSString* substring, NSRange substringRange, NSRange enclosingRange, BOOL* stop) {
+        unichar ch = [substring characterAtIndex:0];
         switch (state) {
             case A17D09StateCancel: {
                 state = A17D09StateGarbage;
@@ -58,7 +60,7 @@ typedef NS_ENUM(NSUInteger, A17D09State) {
                 break;
             }
         }
-    }
+    }];
     return @{@"score": @(score), @"count": @(count)};
 }
 

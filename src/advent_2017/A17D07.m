@@ -58,10 +58,10 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableSet<NSString*>* names = [[NSMutableSet alloc] init];
     NSMutableSet<NSString*>* held = [[NSMutableSet alloc] init];
     
-    for (Item* item in [self data]) {
+    [[self data] enumerateObjectsUsingBlock:^(Item* item, NSUInteger idx, BOOL* stop) {
         [names addObject:item.name];
         [held addObjectsFromArray:item.held];
-    }
+    }];
     
     [names minusSet:held];
     
@@ -72,9 +72,9 @@ NS_ASSUME_NONNULL_BEGIN
 {
     if (!_index) {
         NSMutableDictionary<NSString*, Item*>* tmp = [[NSMutableDictionary alloc] init];
-        for (Item* item in [self data]) {
+        [[self data] enumerateObjectsUsingBlock:^(Item* item, NSUInteger idx, BOOL* stop) {
             tmp[item.name] = item;
-        }
+        }];
         _index = [tmp copy];
     }
     return _index[name];
@@ -83,16 +83,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSUInteger)weight:(NSString*)name
 {
     Item* item = [self lookupByName:name];
-    NSUInteger result = item.weight;
-    for (NSString* held in item.held) {
+    NSUInteger __block result = item.weight;
+    [item.held enumerateObjectsUsingBlock:^(NSString* held, NSUInteger idx, BOOL* stop) {
         result += [self weight:held];
-    }
+    }];
     return result;
 }
 
 - (nullable id)part2
 {
-    for (Item* item in [self data]) {
+    NSNumber* __block result;
+    [[self data] enumerateObjectsUsingBlock:^(Item* item, NSUInteger idx, BOOL* stop) {
         if (item.held.count) {
             NSMutableArray<NSNumber*>* weights = [[NSMutableArray alloc] initWithCapacity:item.held.count];
             for (NSString* held in item.held) {
@@ -110,13 +111,14 @@ NS_ASSUME_NONNULL_BEGIN
                         *stop = YES;
                     }
                 }];
-                return @([self lookupByName:item.held[[weights indexOfObject:uniqueWeight]]].weight +
-                         (((NSNumber*)[weights valueForKeyPath:@"@min.self"]).integerValue -
-                          ((NSNumber*)[weights valueForKeyPath:@"@max.self"]).integerValue));
+                result = @([self lookupByName:item.held[[weights indexOfObject:uniqueWeight]]].weight +
+                           (((NSNumber*)[weights valueForKeyPath:@"@min.self"]).integerValue -
+                            ((NSNumber*)[weights valueForKeyPath:@"@max.self"]).integerValue));
+                *stop = YES;
             }
         }
-    }
-    return nil;
+    }];
+    return result;
 }
 
 @end

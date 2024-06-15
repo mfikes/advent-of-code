@@ -7,9 +7,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<NSNumber*>*)data
 {
     NSMutableArray<NSNumber*>* rv = [[NSMutableArray alloc] init];
-    for (NSString* component in [self.input componentsSeparatedByString:@"\t"]) {
-        [rv addObject:@([component intValue])];
-    }
+    [self.input enumerateSubstringsInRange:NSMakeRange(0, self.input.length)
+                                   options:NSStringEnumerationByWords
+                                usingBlock:^(NSString* substring, NSRange substringRange, NSRange enclosingRange, BOOL* stop) {
+        [rv addObject:@([substring intValue])];
+    }];
     return [rv copy];
 }
 

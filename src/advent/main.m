@@ -30,14 +30,14 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
         NSArray<ADProblem*>* problems = @[
-            [[A17D01 alloc] initWithInputPath:@"advent_2017/day_01"],
-            [[A17D02 alloc] initWithInputPath:@"advent_2017/day_02"],
-            [[A17D03 alloc] initWithInputPath:nil],
-            [[A17D04 alloc] initWithInputPath:@"advent_2017/day_04"],
-            [[A17D05 alloc] initWithInputPath:@"advent_2017/day_05"],
-            [[A17D06 alloc] initWithInputPath:@"advent_2017/day_06"],
-            [[A17D07 alloc] initWithInputPath:@"advent_2017/day_07"],
-            [[A17D08 alloc] initWithInputPath:@"advent_2017/day_08"],
+            //[[A17D01 alloc] initWithInputPath:@"advent_2017/day_01"],
+            //[[A17D02 alloc] initWithInputPath:@"advent_2017/day_02"],
+            //[[A17D03 alloc] initWithInputPath:nil],
+            //[[A17D04 alloc] initWithInputPath:@"advent_2017/day_04"],
+            //[[A17D05 alloc] initWithInputPath:@"advent_2017/day_05"],
+            //[[A17D06 alloc] initWithInputPath:@"advent_2017/day_06"],
+            //[[A17D07 alloc] initWithInputPath:@"advent_2017/day_07"],
+            //[[A17D08 alloc] initWithInputPath:@"advent_2017/day_08"],
             [[A17D09 alloc] initWithInputPath:@"advent_2017/day_09"],
             //[[A17D10 alloc] initWithInputPath:nil],
             //[[A17D11 alloc] initWithInputPath:@"advent_2017/day_11"],
