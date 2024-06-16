@@ -10,67 +10,56 @@ typedef NS_ENUM(NSUInteger, A17D09State) {
 
 @implementation A17D09
 
-- (NSDictionary<NSString*, NSNumber*>*)solution
-{
-    A17D09State __block state = A17D09StateGroup;
-    NSUInteger __block level = 1;
-    NSUInteger __block score = 0;
-    NSUInteger __block count = 0;
+- (NSDictionary<NSString *, NSNumber *> *)solution {
+    __block A17D09State state = A17D09StateGroup;
+    __block NSUInteger level = 1;
+    __block NSUInteger score = 0;
+    __block NSUInteger count = 0;
     
     [self.input enumerateSubstringsInRange:NSMakeRange(0, self.input.length)
                                    options:NSStringEnumerationByComposedCharacterSequences
-                                usingBlock:^(NSString* substring, NSRange substringRange, NSRange enclosingRange, BOOL* stop) {
+                                usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
         unichar ch = [substring characterAtIndex:0];
         switch (state) {
-            case A17D09StateCancel: {
+            case A17D09StateCancel:
                 state = A17D09StateGarbage;
                 break;
-            }
-            case A17D09StateGarbage: {
+            case A17D09StateGarbage:
                 switch (ch) {
-                    case '>': {
+                    case '>':
                         state = A17D09StateGroup;
                         break;
-                    }
-                    case '!': {
+                    case '!':
                         state = A17D09StateCancel;
                         break;
-                    }
                     default:
                         count++;
                 }
                 break;
-            }
-            case A17D09StateGroup: {
+            case A17D09StateGroup:
                 switch (ch) {
-                    case '<': {
+                    case '<':
                         state = A17D09StateGarbage;
                         break;
-                    }
-                    case '{': {
+                    case '{':
                         level++;
                         break;
-                    }
-                    case '}': {
+                    case '}':
                         level--;
                         score += level;
                         break;
-                    }
                 }
                 break;
-            }
         }
     }];
     return @{@"score": @(score), @"count": @(count)};
 }
 
-- (nullable id)part1
-{
+- (nullable id)part1 {
     return [self solution][@"score"];
 }
 
-- (nullable id)part2
-{
+- (nullable id)part2 {
     return [self solution][@"count"];
 }
 

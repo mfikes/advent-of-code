@@ -13,7 +13,7 @@ typedef NS_ENUM(NSUInteger, AD17D11Dir) {
     AD17D11DirNW
 };
 
-NSString* NSStringFromAD17D11Dir(AD17D11Dir dir) {
+NSString *NSStringFromAD17D11Dir(AD17D11Dir dir) {
     switch (dir) {
         case AD17D11DirN:
             return @"N";
@@ -61,18 +61,14 @@ NSString* NSStringFromAD17D11Dir(AD17D11Dir dir) {
 
 @end
 
-@interface AD17D11Location : NSObject<NSCopying>
+@interface AD17D11Location : NSObject <NSCopying>
 
 @property (nonatomic, assign, readonly) int x;
-
 @property (nonatomic, assign, readonly) int y;
-
 @property (nonatomic, assign, readonly) int z;
-
 @property (nonatomic, readonly) int distance;
 
 - (instancetype)init NS_UNAVAILABLE;
-
 - (instancetype)initWithX:(int)x y:(int)y z:(int)z NS_DESIGNATED_INITIALIZER;
 
 @end
@@ -81,9 +77,9 @@ NSString* NSStringFromAD17D11Dir(AD17D11Dir dir) {
 
 @dynamic distance;
 
-- (instancetype)initWithX:(int)x y:(int)y z:(int)z
-{
-    if ((self = [super init])) {
+- (instancetype)initWithX:(int)x y:(int)y z:(int)z {
+    self = [super init];
+    if (self) {
         _x = x;
         _y = y;
         _z = z;
@@ -91,28 +87,23 @@ NSString* NSStringFromAD17D11Dir(AD17D11Dir dir) {
     return self;
 }
 
-- (BOOL)isEqual:(id)object
-{
+- (BOOL)isEqual:(id)object {
     if (self == object) return YES;
     if ([self class] != [object class]) return NO;
-    
-    AD17D11Location* otherLocation = (AD17D11Location*)object;
-    
+
+    AD17D11Location *otherLocation = (AD17D11Location *)object;
     return _x == otherLocation.x && _y == otherLocation.y && _z == otherLocation.z;
 }
 
-- (NSUInteger)hash
-{
+- (NSUInteger)hash {
     return 71993 * (_x + 13752) + 933199 * _y + 3212 * _z;
 }
 
-- (AD17D11Location*)add:(AD17D11Location*)other
-{
+- (AD17D11Location *)add:(AD17D11Location *)other {
     return [[AD17D11Location alloc] initWithX:_x + other.x y:_y + other.y z:_z + other.z];
 }
 
-- (AD17D11Location*)move:(AD17D11Dir)dir
-{
+- (AD17D11Location *)move:(AD17D11Dir)dir {
     switch (dir) {
         case AD17D11DirN:
             return [self add:[[AD17D11Location alloc] initWithX:0 y:1 z:-1]];
@@ -131,13 +122,11 @@ NSString* NSStringFromAD17D11Dir(AD17D11Dir dir) {
     }
 }
 
-- (int)distance
-{
-    return (abs(_x) + abs(_y) + abs(_z))/2;
+- (int)distance {
+    return (abs(_x) + abs(_y) + abs(_z)) / 2;
 }
 
-- (NSString*)description
-{
+- (NSString *)description {
     return [NSString stringWithFormat:@"[%d %d %d]", _x, _y, _z];
 }
 
@@ -148,15 +137,14 @@ NSString* NSStringFromAD17D11Dir(AD17D11Dir dir) {
 @end
 
 @implementation A17D11 {
-    NSArray<NSValue*>* _data;
+    NSArray<NSValue *> *_data;
 }
 
-- (NSArray<NSValue*>*) data {
+- (NSArray<NSValue *> *)data {
     if (_data == nil) {
-        NSMutableArray<NSValue*>* tmp = [[NSMutableArray alloc] init];
-        NSString* inputWithoutNewline = [self.input substringToIndex:[self.input length] - 1];
-        for (NSString* dir in [inputWithoutNewline componentsSeparatedByString:@","]) {
-            //NSLog(@"%@", dir);
+        NSMutableArray<NSValue *> *tmp = [[NSMutableArray alloc] init];
+        NSString *inputWithoutNewline = [self.input substringToIndex:self.input.length - 1];
+        for (NSString *dir in [inputWithoutNewline componentsSeparatedByString:@","]) {
             if ([dir isEqualToString:@"n"]) {
                 [tmp addObject:[NSValue valueWithAD17D11Dir:AD17D11DirN]];
             } else if ([dir isEqualToString:@"ne"]) {
@@ -182,20 +170,18 @@ NSString* NSStringFromAD17D11Dir(AD17D11Dir dir) {
     return _data;
 }
 
-- (nullable id)part1
-{
-    AD17D11Location* loc = [[AD17D11Location alloc] initWithX:0 y:0 z:0];
-    for (NSValue* dir in [self data]) {
+- (nullable id)part1 {
+    AD17D11Location *loc = [[AD17D11Location alloc] initWithX:0 y:0 z:0];
+    for (NSValue *dir in [self data]) {
         loc = [loc move:[dir AD17D11DirValue]];
     }
     return @(loc.distance);
 }
 
-- (nullable id)part2
-{
+- (nullable id)part2 {
     NSUInteger maxDistance = 0;
-    AD17D11Location* loc = [[AD17D11Location alloc] initWithX:0 y:0 z:0];
-    for (NSValue* dir in [self data]) {
+    AD17D11Location *loc = [[AD17D11Location alloc] initWithX:0 y:0 z:0];
+    for (NSValue *dir in [self data]) {
         loc = [loc move:[dir AD17D11DirValue]];
         maxDistance = MAX(maxDistance, loc.distance);
     }

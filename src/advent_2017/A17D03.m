@@ -2,16 +2,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Location : NSObject<NSCopying>
+@interface Location : NSObject <NSCopying>
 
 @property (nonatomic, assign, readonly) int x;
-
 @property (nonatomic, assign, readonly) int y;
-
 @property (nonatomic, readonly) int distance;
 
 - (instancetype)init NS_UNAVAILABLE;
-
 - (instancetype)initWithX:(int)x y:(int)y NS_DESIGNATED_INITIALIZER;
 
 @end
@@ -20,51 +17,44 @@ NS_ASSUME_NONNULL_BEGIN
 
 @dynamic distance;
 
-- (instancetype)initWithX:(int)x y:(int)y
-{
-    if ((self = [super init])) {
+- (instancetype)initWithX:(int)x y:(int)y {
+    self = [super init];
+    if (self) {
         _x = x;
         _y = y;
     }
     return self;
 }
 
-- (BOOL)isEqual:(id)object
-{
+- (BOOL)isEqual:(id)object {
     if (self == object) return YES;
     if ([self class] != [object class]) return NO;
-    
-    Location* otherLocation = (Location*)object;
-    
+
+    Location *otherLocation = (Location *)object;
     return _x == otherLocation.x && _y == otherLocation.y;
 }
 
-- (NSUInteger)hash
-{
+- (NSUInteger)hash {
     return 71993 * (_x + 13752) + 933199 * _y;
 }
 
-- (Location*)add:(Location*)other
-{
+- (Location *)add:(Location *)other {
     return [[Location alloc] initWithX:_x + other.x y:_y + other.y];
 }
 
-- (NSArray<Location*>*)addLocations:(NSArray<Location*>*)others
-{
-    NSMutableArray<Location*>* rv = [[NSMutableArray alloc] initWithCapacity:others.count];
-    [others enumerateObjectsUsingBlock:^(Location* other, NSUInteger idx, BOOL* stop) {
+- (NSArray<Location *> *)addLocations:(NSArray<Location *> *)others {
+    NSMutableArray<Location *> *rv = [[NSMutableArray alloc] initWithCapacity:others.count];
+    [others enumerateObjectsUsingBlock:^(Location *other, NSUInteger idx, BOOL *stop) {
         [rv addObject:[self add:other]];
     }];
     return [rv copy];
 }
 
-- (int)distance
-{
+- (int)distance {
     return abs(_x) + abs(_y);
 }
 
-- (NSString*)description
-{
+- (NSString *)description {
     return [NSString stringWithFormat:@"[%d %d]", _x, _y];
 }
 
@@ -76,13 +66,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation A17D03
 
-- (int)data
-{
+- (int)data {
     return 368078;
 }
 
-- (NSArray<Location*>*)candidateLocations:(Location*)location
-{
+- (NSArray<Location *> *)candidateLocations:(Location *)location {
     return [location addLocations:@[
         [[Location alloc] initWithX:0 y:-1],
         [[Location alloc] initWithX:-1 y:0],
@@ -91,16 +79,15 @@ NS_ASSUME_NONNULL_BEGIN
     ]];
 }
 
-- (Location*)nthSpiral:(int)n
-{
-    Location* location = [[Location alloc] initWithX:1 y:0];
-    
-    NSMutableSet<Location*>* usedLocations = [[NSMutableSet<Location*> alloc] init];
+- (Location *)nthSpiral:(int)n {
+    Location *location = [[Location alloc] initWithX:1 y:0];
+
+    NSMutableSet<Location *> *usedLocations = [[NSMutableSet alloc] init];
     [usedLocations addObject:[[Location alloc] initWithX:0 y:0]];
     [usedLocations addObject:[[Location alloc] initWithX:1 y:0]];
-    
-    for (int i=0; i<n; i++) {
-        NSArray<Location*>* candidateLocations = [self candidateLocations:location];
+
+    for (int i = 0; i < n; i++) {
+        NSArray<Location *> *candidateLocations = [self candidateLocations:location];
         NSUInteger idx = 0;
         while (![usedLocations containsObject:candidateLocations[idx]]) {
             idx++;
@@ -113,22 +100,19 @@ NS_ASSUME_NONNULL_BEGIN
         location = candidateLocations[idx];
         [usedLocations addObject:location];
     }
-    
+
     return location;
 }
 
-- (Location*)locationForSquare:(int)square
-{
+- (Location *)locationForSquare:(int)square {
     return [self nthSpiral:square - 2];
 }
 
-- (nullable id)part1
-{
+- (nullable id)part1 {
     return @([self locationForSquare:[self data]].distance);
 }
 
-- (NSArray<Location*>*)adjacentLocations:(Location*)location
-{
+- (NSArray<Location *> *)adjacentLocations:(Location *)location {
     return [location addLocations:@[
         [[Location alloc] initWithX:-1 y:1],
         [[Location alloc] initWithX:0 y:1],
@@ -141,16 +125,15 @@ NS_ASSUME_NONNULL_BEGIN
     ]];
 }
 
-- (nullable id)part2
-{
-    NSMutableDictionary<Location*, NSNumber*>* acc = [[NSMutableDictionary alloc] init];
+- (nullable id)part2 {
+    NSMutableDictionary<Location *, NSNumber *> *acc = [[NSMutableDictionary alloc] init];
     [acc setObject:@1 forKey:[[Location alloc] initWithX:0 y:0]];
-    
+
     int n = 0;
     for (;;) {
-        Location* location = [self nthSpiral:n++];
+        Location *location = [self nthSpiral:n++];
         int sum = 0;
-        for (Location* adjacentLocation in [self adjacentLocations:location]) {
+        for (Location *adjacentLocation in [self adjacentLocations:location]) {
             sum += acc[adjacentLocation].intValue;
         }
         if ([self data] < sum) {

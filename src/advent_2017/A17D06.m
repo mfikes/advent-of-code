@@ -4,24 +4,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation A17D06
 
-- (NSArray<NSNumber*>*)data
-{
-    NSMutableArray<NSNumber*>* rv = [[NSMutableArray alloc] init];
+- (NSArray<NSNumber *> *)data {
+    NSMutableArray<NSNumber *> *rv = [[NSMutableArray alloc] init];
     [self.input enumerateSubstringsInRange:NSMakeRange(0, self.input.length)
                                    options:NSStringEnumerationByWords
-                                usingBlock:^(NSString* substring, NSRange substringRange, NSRange enclosingRange, BOOL* stop) {
+                                usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
         [rv addObject:@([substring intValue])];
     }];
     return [rv copy];
 }
 
-- (NSArray<NSNumber*>*)redistribute:(NSArray<NSNumber*>*)banks
-{
+- (NSArray<NSNumber *> *)redistribute:(NSArray<NSNumber *> *)banks {
     NSUInteger count = banks.count;
     NSInteger maxValue = [[banks valueForKeyPath:@"@max.self"] integerValue];
     NSInteger maxIndex = [banks indexOfObject:@(maxValue)];
     
-    NSMutableArray<NSNumber*>* result = [banks mutableCopy];
+    NSMutableArray<NSNumber *> *result = [banks mutableCopy];
     result[maxIndex] = @0;
     
     for (NSInteger i = 0; i < maxValue; i++) {
@@ -32,14 +30,13 @@ NS_ASSUME_NONNULL_BEGIN
     return [result copy];
 }
 
-- (NSArray<NSNumber*>*)solve:(NSArray<NSNumber*>*)banks
-{
-    NSMutableDictionary<NSString*, NSNumber*>* lastSeen = [[NSMutableDictionary alloc] init];
+- (NSArray<NSNumber *> *)solve:(NSArray<NSNumber *> *)banks {
+    NSMutableDictionary<NSString *, NSNumber *> *lastSeen = [[NSMutableDictionary alloc] init];
     NSUInteger steps = 0;
     
     while (true) {
-        NSString* banksKey = [banks componentsJoinedByString:@","];
-        NSNumber* s = lastSeen[banksKey];
+        NSString *banksKey = [banks componentsJoinedByString:@","];
+        NSNumber *s = lastSeen[banksKey];
         if (s) {
             return @[@(steps), s];
         }
@@ -49,14 +46,12 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (nullable id)part1
-{
+- (nullable id)part1 {
     return [self solve:[self data]][0];
 }
 
-- (nullable id)part2
-{
-    NSArray<NSNumber*>* arr = [self solve:[self data]];
+- (nullable id)part2 {
+    NSArray<NSNumber *> *arr = [self solve:[self data]];
     return @(arr[0].integerValue - arr[1].integerValue);
 }
 
