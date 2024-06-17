@@ -5,6 +5,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface A17D10 : ADProblem
 
+- (NSArray<NSNumber *> *)knotHashDecimal:(NSString *)s;
+
 @end
 
 NS_ASSUME_NONNULL_END
