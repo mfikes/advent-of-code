@@ -4,13 +4,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation A17D16
 
-- (nullable id)part1
-{
+- (nullable id)part1 {
     return nil;
 }
 
-- (nullable id)part2
-{
+- (nullable id)part2 {
     return nil;
 }
 
