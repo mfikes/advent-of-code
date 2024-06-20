@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface UFStructure : NSObject
+@interface UFStructure ()
 
 @property (nonatomic) NSMutableDictionary<NSNumber *, UFValue *> *uf;
 
