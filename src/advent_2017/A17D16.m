@@ -16,36 +16,31 @@ NS_ASSUME_NONNULL_BEGIN
     NSString *suffix = [s substringFromIndex:1];
     if ([s hasPrefix:@"s"]) {
         NSInteger arg1 = suffix.integerValue;
-        return ^(NSArray *xs) {
+        return ^(NSMutableArray *xs) {
+            NSArray *copy = [xs copy];
             NSUInteger c = xs.count;
-            NSMutableArray *result = [[NSMutableArray alloc] init];
             for (NSUInteger idx = 0; idx < c; idx++) {
-                result[idx] = xs[(idx + (c - arg1)) % c];
+                xs[idx] = copy[(idx + (c - arg1)) % c];
             }
-            return result;
         };
     } else if ([s hasPrefix:@"x"]) {
-        return ^(NSArray *xs) {
-            NSUInteger slashIndex = [suffix rangeOfString:@"/"].location;
-            NSInteger arg1 = [suffix substringToIndex:slashIndex].integerValue;
-            NSInteger arg2 = [suffix substringFromIndex:slashIndex + 1].integerValue;
-            NSMutableArray *result = [[NSMutableArray alloc] initWithArray:xs];
-            id tmp = result[arg1];
-            result[arg1] = result[arg2];
-            result[arg2] = tmp;
-            return result;
+        NSUInteger slashIndex = [suffix rangeOfString:@"/"].location;
+        NSInteger arg1 = [suffix substringToIndex:slashIndex].integerValue;
+        NSInteger arg2 = [suffix substringFromIndex:slashIndex + 1].integerValue;
+        return ^(NSMutableArray *xs) {
+            id tmp = xs[arg1];
+            xs[arg1] = xs[arg2];
+            xs[arg2] = tmp;
         };
     } else {
-        return ^(NSArray *xs) {
-            NSString *s1 = [suffix substringToIndex:1];
-            NSString *s2 = [suffix substringFromIndex:2];
+        NSString *s1 = [suffix substringToIndex:1];
+        NSString *s2 = [suffix substringFromIndex:2];
+        return ^(NSMutableArray *xs) {
             NSInteger arg1 = [xs indexOfObject:s1];
             NSInteger arg2 = [xs indexOfObject:s2];
-            NSMutableArray *result = [[NSMutableArray alloc] initWithArray:xs];
-            id tmp = result[arg1];
-            result[arg1] = result[arg2];
-            result[arg2] = tmp;
-            return result;
+            id tmp = xs[arg1];
+            xs[arg1] = xs[arg2];
+            xs[arg2] = tmp;
         };
     }
 }
@@ -62,10 +57,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSArray *)dance:(NSArray *)xs {
-    for (NSArray *(^move)(NSArray *) in self.danceMoves) {
-        xs = move(xs);
+    NSMutableArray *arr = [xs mutableCopy];
+    for (void (^move)(NSMutableArray *) in self.danceMoves) {
+        move(arr);
     }
-    return xs;
+    return arr;
 }
 
 - (NSArray<NSString *> *)startingPositions {
